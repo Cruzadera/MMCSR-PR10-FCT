@@ -37,6 +37,10 @@ public class Company {
         this.nameContactPerson = nameContactPerson;
     }
 
+    public Company() {
+
+    }
+
     public long getIdCompany() {
         return idCompany;
     }

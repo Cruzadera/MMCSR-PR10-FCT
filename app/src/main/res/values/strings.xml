@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MMCSR-PR10-FCT</string>
+    <string name="app_name">Companies</string>
+    <string name="description_imgLogo">Company logo</string>
+    <string name="lbl_no_companies">No companies yet</string>
 </resources>
