@@ -12,4 +12,7 @@
     <string name="description_img_logo">Company Logo</string>
     <string name="lbl_save">Save</string>
     <string name="cif_letter_hint">CIF Letter</string>
+    <string name="main_invalid_data">Invalid data</string>
+    <string name="main_saved_succesfully">Saved succesfully</string>
+    <string name="main_error_saving">Error saving</string>
 </resources>

@@ -1,7 +1,6 @@
 package es.iessaladillo.maria.mmcsr_pr10_fct.data.local;
 
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -20,14 +19,11 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
-                    instance =
-                        Room.databaseBuilder(
-                            context.getApplicationContext(), AppDatabase.class,
-                            DATABASE_NAME).build();
+                    instance = Room.databaseBuilder(context.getApplicationContext(),
+                            AppDatabase.class, DATABASE_NAME).build();
                 }
             }
         }
         return instance;
     }
-
 }

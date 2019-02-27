@@ -60,7 +60,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgLogo">
+            app:layout_constraintStart_toEndOf="@+id/imgLogo"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtUrlLogo"
@@ -124,7 +125,9 @@
             android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
+            app:layout_constraintTop_toBottomOf="@+id/tilAddress"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/maxlength_phone">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtPhone"
@@ -142,7 +145,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -185,6 +188,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/margin_top_form"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/maxlength_cif_numbers"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilContactName">
 
@@ -195,7 +200,6 @@
                 android:hint="@string/hint_cif"
                 android:inputType="number"
                 android:maxLength="@integer/maxlength_cif_numbers"
-                android:nextFocusDown="@integer/max_length_letter_cif"
                 android:nextFocusRight="@id/txtCIFLetter"
                 android:nextFocusForward="@id/txtCIFLetter"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -206,6 +210,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_form"
             android:layout_marginEnd="@dimen/normal_margin"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/max_length_letter_cif"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toEndOf="@+id/tilCIFnumbers"

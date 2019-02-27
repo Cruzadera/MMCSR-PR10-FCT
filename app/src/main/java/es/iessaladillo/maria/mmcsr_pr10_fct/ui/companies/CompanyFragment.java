@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.company;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -11,25 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Objects;
-
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.CompanyDao;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentCompanyBinding;
 
 public class CompanyFragment extends Fragment {
@@ -98,6 +92,7 @@ public class CompanyFragment extends Fragment {
         b.lstCompanies.setHasFixedSize(true);
         b.lstCompanies.setLayoutManager(new GridLayoutManager(getActivity(),
                 getResources().getInteger(R.integer.company_lstCompanies_columns)));
+        b.lstCompanies.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
         b.lstCompanies.setItemAnimator(new DefaultItemAnimator());
         b.lstCompanies.setAdapter(listAdapter);
     }

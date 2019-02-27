@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.company;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -85,7 +85,10 @@ public class CompanyFragmentAdapter extends ListAdapter<Company, CompanyFragment
             lblEmail.setText(company.getEmail());
             lblAddress.setText(company.getAddress());
             lblPersonNameContact.setText(company.getNameContactPerson());
-            Picasso.with(itemView.getContext()).load(company.getUrlLogo()).into(imgLogo);
+            Picasso.with(itemView.getContext()).load(company.getUrlLogo())
+                    .error(R.drawable.ic_error_black_24dp)
+                    .resize(200, 200)
+                    .into(imgLogo);
         }
     }
 }

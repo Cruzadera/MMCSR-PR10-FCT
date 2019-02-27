@@ -10,6 +10,7 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 public class AddCompanyFragmentViewModel extends ViewModel {
     private final Repository repository;
     private LiveData<List<Company>> companies;
+    private Company company;
 
     AddCompanyFragmentViewModel(Repository repository) {
         this.repository = repository;
@@ -20,11 +21,19 @@ public class AddCompanyFragmentViewModel extends ViewModel {
         return companies;
     }
 
-    public void insertCompany(Company company){
+    void insertCompany(Company company){
         repository.insertCompany(company);
     }
 
     public void updateCompany(Company company){
         repository.updateCompany(company);
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

@@ -2,6 +2,7 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -36,9 +37,19 @@ public class Company {
         this.urlLogo = urlLogo;
         this.nameContactPerson = nameContactPerson;
     }
-
+    @Ignore
     public Company() {
 
+    }
+    @Ignore
+    public Company(String name, String CIF, String address, String phone, String email, String urlLogo, String nameContactPerson) {
+        this.name = name;
+        this.CIF = CIF;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.urlLogo = urlLogo;
+        this.nameContactPerson = nameContactPerson;
     }
 
     public long getIdCompany() {

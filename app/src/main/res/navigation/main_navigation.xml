@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/companyFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.company.CompanyFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragment"
         android:label="fragment_company"
         tools:layout="@layout/fragment_company" >
         <action
@@ -23,5 +23,10 @@
         android:id="@+id/addCompanyFragment"
         android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company.AddCompanyFragment"
         android:label="fragment_add_company"
-        tools:layout="@layout/fragment_add_company" />
+        tools:layout="@layout/fragment_add_company" >
+        <argument
+            android:name="companyId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

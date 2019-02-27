@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.company;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies;
 
 import java.util.List;
 
