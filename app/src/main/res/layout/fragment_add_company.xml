@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.add_company.AddCompanyFragment">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="Add company" />
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/first_top_margin_form"
+            android:contentDescription="@string/description_img_logo"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/coordinatorLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilUrlLogo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgLogo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtUrlLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_url_logo"
+                android:inputType="textUri"
+                android:nextFocusDown="@id/txtName"
+                android:nextFocusForward="@id/txtName"
+                android:nextFocusRight="@id/txtName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_name"
+                android:inputType="text"
+                android:nextFocusDown="@id/txtAddress"
+                android:nextFocusForward="@id/txtAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_address"
+                android:inputType="textPostalAddress"
+                android:nextFocusDown="@id/txtPhone"
+                android:nextFocusForward="@id/txtPhone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_phone"
+                android:inputType="phone"
+                android:maxLength="@integer/maxlength_phone"
+                android:nextFocusDown="@id/txtEmail"
+                android:nextFocusForward="@id/txtEmail"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilPhone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@id/txtContactName"
+                android:nextFocusForward="@id/txtContactName"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilContactName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtContactName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_contactname"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@id/txtNumbersCif"
+                android:nextFocusForward="@id/txtNumbersCif"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCIFnumbers"
+            android:layout_width="@dimen/witdh_CIF_numbers"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/margin_top_form"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilContactName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtNumbersCif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_cif"
+                android:inputType="number"
+                android:maxLength="@integer/maxlength_cif_numbers"
+                android:nextFocusDown="@integer/max_length_letter_cif"
+                android:nextFocusRight="@id/txtCIFLetter"
+                android:nextFocusForward="@id/txtCIFLetter"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCIFLetter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toEndOf="@+id/tilCIFnumbers"
+            app:layout_constraintTop_toBottomOf="@+id/tilContactName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtCIFLetter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/cif_letter_hint"
+                android:inputType="text"
+                android:maxLength="@integer/max_length_letter_cif"
+                android:nextFocusForward="@id/txtUrlLogo"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

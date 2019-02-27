@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="company_lstCompanies_columns">1</integer>
+    <integer name="maxlength_phone">9</integer>
+    <integer name="maxlength_cif_numbers">8</integer>
+    <integer name="max_length_letter_cif">1</integer>
 </resources>

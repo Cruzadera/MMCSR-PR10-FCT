@@ -2,4 +2,14 @@
     <string name="app_name">Companies</string>
     <string name="description_imgLogo">Company logo</string>
     <string name="lbl_no_companies">No companies yet</string>
+    <string name="hint_url_logo">Url company logo</string>
+    <string name="hint_name">Company name</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_phone">Phone number</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_contactname">Contact person\'s name</string>
+    <string name="hint_cif">Company CIF number</string>
+    <string name="description_img_logo">Company Logo</string>
+    <string name="lbl_save">Save</string>
+    <string name="cif_letter_hint">CIF Letter</string>
 </resources>

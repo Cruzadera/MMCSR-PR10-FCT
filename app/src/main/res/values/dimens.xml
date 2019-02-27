@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normal_margin">8dp</dimen>
+    <dimen name="margin_top_form">16dp</dimen>
+    <dimen name="first_top_margin_form">64dp</dimen>
+    <dimen name="witdh_CIF_numbers">300dp</dimen>
+</resources>

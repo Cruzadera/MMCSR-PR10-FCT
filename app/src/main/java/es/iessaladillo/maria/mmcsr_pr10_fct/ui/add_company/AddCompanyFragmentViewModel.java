@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.company;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company;
 
 import java.util.List;
 
@@ -7,12 +7,11 @@ import androidx.lifecycle.ViewModel;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 
-public class CompanyFragmentViewModel extends ViewModel {
-
+public class AddCompanyFragmentViewModel extends ViewModel {
     private final Repository repository;
     private LiveData<List<Company>> companies;
 
-    CompanyFragmentViewModel(Repository repository) {
+    AddCompanyFragmentViewModel(Repository repository) {
         this.repository = repository;
         companies = repository.queryAllCompany();
     }
