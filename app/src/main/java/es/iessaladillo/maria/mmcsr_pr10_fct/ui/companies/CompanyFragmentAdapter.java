@@ -20,6 +20,18 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 
 public class CompanyFragmentAdapter extends ListAdapter<Company, CompanyFragmentAdapter.ViewHolder> {
 
+    interface OnEditableListener{
+        void onEdit(int position);
+    }
+
+
+    private OnEditableListener onEditableListener;
+
+
+    void setOnEditableListener(OnEditableListener onEditableListener) {
+        this.onEditableListener = onEditableListener;
+    }
+
 
     CompanyFragmentAdapter() {
         super(new DiffUtil.ItemCallback<Company>() {
@@ -77,6 +89,7 @@ public class CompanyFragmentAdapter extends ListAdapter<Company, CompanyFragment
             lblEmail = ViewCompat.requireViewById(itemView, R.id.lblEmail);
             lblAddress = ViewCompat.requireViewById(itemView, R.id.lblAddress);
             lblPersonNameContact = ViewCompat.requireViewById(itemView, R.id.lblContactPersonName);
+            itemView.setOnClickListener(v -> onEditableListener.onEdit(getAdapterPosition()));
         }
 
         void bind(Company company){
@@ -86,7 +99,7 @@ public class CompanyFragmentAdapter extends ListAdapter<Company, CompanyFragment
             lblAddress.setText(company.getAddress());
             lblPersonNameContact.setText(company.getNameContactPerson());
             Picasso.with(itemView.getContext()).load(company.getUrlLogo())
-                    .error(R.drawable.ic_error_black_24dp)
+                    .error(R.mipmap.ic_launcher)
                     .resize(200, 200)
                     .into(imgLogo);
         }

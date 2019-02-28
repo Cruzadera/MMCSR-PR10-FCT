@@ -57,11 +57,11 @@
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
-            app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
             android:focusable="true"
+            app:errorEnabled="true"
+            app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgLogo"
-            app:errorEnabled="true">
+            app:layout_constraintStart_toEndOf="@+id/imgLogo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtUrlLogo"
@@ -69,9 +69,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_url_logo"
                 android:inputType="textUri"
+                android:nextFocusRight="@id/txtName"
                 android:nextFocusDown="@id/txtName"
-                android:nextFocusForward="@id/txtName"
-                android:nextFocusRight="@id/txtName"/>
+                android:nextFocusForward="@id/txtName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -79,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/margin_top_form"
+            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
                 android:hint="@string/hint_name"
                 android:inputType="text"
                 android:nextFocusDown="@id/txtAddress"
-                android:nextFocusForward="@id/txtAddress"/>
+                android:nextFocusForward="@id/txtAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +113,7 @@
                 android:hint="@string/hint_address"
                 android:inputType="textPostalAddress"
                 android:nextFocusDown="@id/txtPhone"
-                android:nextFocusForward="@id/txtPhone"/>
+                android:nextFocusForward="@id/txtPhone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -123,11 +123,11 @@
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/margin_top_form"
             android:layout_marginEnd="@dimen/normal_margin"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/maxlength_phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilAddress"
-            app:counterEnabled="true"
-            app:counterMaxLength="@integer/maxlength_phone">
+            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtPhone"
@@ -137,7 +137,7 @@
                 android:inputType="phone"
                 android:maxLength="@integer/maxlength_phone"
                 android:nextFocusDown="@id/txtEmail"
-                android:nextFocusForward="@id/txtEmail"/>
+                android:nextFocusForward="@id/txtEmail" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -145,7 +145,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +158,7 @@
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/txtContactName"
-                android:nextFocusForward="@id/txtContactName"/>
+                android:nextFocusForward="@id/txtContactName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -179,41 +179,44 @@
                 android:hint="@string/hint_contactname"
                 android:inputType="textPersonName"
                 android:nextFocusDown="@id/txtNumbersCif"
-                android:nextFocusForward="@id/txtNumbersCif"/>
+                android:nextFocusForward="@id/txtNumbersCif" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCIFnumbers"
-            android:layout_width="@dimen/witdh_CIF_numbers"
+            android:layout_width="204dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/margin_top_form"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/maxlength_cif_numbers"
+            app:layout_constraintEnd_toStartOf="@+id/tilCIFLetter"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/coordinatorLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilContactName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtNumbersCif"
-                android:layout_width="match_parent"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_cif"
                 android:inputType="number"
                 android:maxLength="@integer/maxlength_cif_numbers"
                 android:nextFocusRight="@id/txtCIFLetter"
-                android:nextFocusForward="@id/txtCIFLetter"/>
+                android:nextFocusForward="@id/txtCIFLetter" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCIFLetter"
-            android:layout_width="0dp"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_form"
-            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/max_length_letter_cif"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toEndOf="@+id/tilCIFnumbers"
             app:layout_constraintTop_toBottomOf="@+id/tilContactName">
 
@@ -224,7 +227,7 @@
                 android:hint="@string/cif_letter_hint"
                 android:inputType="text"
                 android:maxLength="@integer/max_length_letter_cif"
-                android:nextFocusForward="@id/txtUrlLogo"/>
+                android:nextFocusForward="@id/txtUrlLogo" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

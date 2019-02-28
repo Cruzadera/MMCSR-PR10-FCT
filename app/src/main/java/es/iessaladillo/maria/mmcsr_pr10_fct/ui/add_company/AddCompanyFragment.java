@@ -2,6 +2,9 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -44,7 +48,7 @@ public class AddCompanyFragment extends Fragment {
     private AddCompanyFragmentViewModel viewModel;
     private FragmentAddCompanyBinding b;
     private NavController navController;
-    private int companyId;
+    private long companyId;
 
     public static AddCompanyFragment newInstance() {
         return new AddCompanyFragment();
@@ -69,13 +73,27 @@ public class AddCompanyFragment extends Fragment {
         companyId = getArguments().getInt("companyId");
         if(companyId == 0){
             viewModel.setCompany(new Company());
+        }else{
+            viewModel.queryCompany(companyId).observe(getViewLifecycleOwner(), this::dataEditCompany);
         }
         setupViews();
     }
 
+
+    private void dataEditCompany(Company company) {
+        b.txtUrlLogo.setText(company.getUrlLogo());
+        b.txtName.setText(company.getName());
+        b.txtAddress.setText(company.getAddress());
+        b.txtEmail.setText(company.getEmail());
+        b.txtPhone.setText(company.getPhone());
+        b.txtContactName.setText(company.getNameContactPerson());
+        b.txtNumbersCif.setText(company.getCIF().substring(1));
+        b.txtCIFLetter.setText(String.format("%c", company.getCIF().charAt(0)));
+    }
+
     private void setupViews() {
         setupToolbar();
-        TextWatcherUtils.setAfterTextChangeListener(b.txtUrlLogo, s -> checkField(b.tilUrlLogo, b.txtUrlLogo, Field.URL_LOGO));
+        TextWatcherUtils.setAfterTextChangeListener(b.txtUrlLogo, s -> {checkField(b.tilUrlLogo, b.txtUrlLogo, Field.URL_LOGO); changePhoto();});
         TextWatcherUtils.setAfterTextChangeListener(b.txtName, s -> checkField(b.tilName, b.txtName, Field.COMMON));
         TextWatcherUtils.setAfterTextChangeListener(b.txtAddress, s -> checkField(b.tilAddress, b.txtAddress, Field.COMMON));
         TextWatcherUtils.setAfterTextChangeListener(b.txtPhone, s -> checkField(b.tilPhone, b.txtPhone, Field.PHONENUMBER));
@@ -91,6 +109,13 @@ public class AddCompanyFragment extends Fragment {
             }
             return false;
         });
+    }
+
+    private void changePhoto() {
+        Picasso.with(requireContext()).load(b.txtUrlLogo.getText().toString())
+                .error(R.mipmap.ic_launcher)
+                .resize(200, 200)
+                .into(b.imgLogo);
     }
 
     private void setupToolbar() {
@@ -113,12 +138,16 @@ public class AddCompanyFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.menu.add_company_fragment) {
-            save();
-            return true;
+        if(item.getItemId() == R.id.action_addCompanyFragment_to_companyFragment){
+            if (save()) {
+                return NavigationUI.onNavDestinationSelected(item, navController)
+                        || super.onOptionsItemSelected(item);
+            }
+        }else{
+            return NavigationUI.onNavDestinationSelected(item, navController)
+                    || super.onOptionsItemSelected(item);
         }
-        return NavigationUI.onNavDestinationSelected(item, navController)
-                || super.onOptionsItemSelected(item);
+        return true;
     }
 
     private boolean checkField(TextInputLayout label, TextInputEditText txt, Field field){
@@ -151,16 +180,21 @@ public class AddCompanyFragment extends Fragment {
         boolean isValid;
         isValid = checkField(b.tilName, b.txtName, Field.COMMON) && checkField(b.tilAddress, b.txtAddress, Field.COMMON) && checkField(b.tilPhone, b.txtPhone, Field.PHONENUMBER)
                 && checkField(b.tilEmail, b.txtEmail, Field.EMAIL) && checkField(b.tilUrlLogo, b.txtUrlLogo, Field.URL_LOGO) && checkField(b.tilCIFLetter, b.txtCIFLetter, Field.COMMON)
-                && checkField(b.tilCIFnumbers, b.txtNumbersCif, Field.COMMON);
+                && checkField(b.tilCIFnumbers, b.txtNumbersCif, Field.COMMON) && checkField(b.tilContactName, b.txtContactName, Field.COMMON);
         return isValid;
     }
 
-    private void save() {
+    private boolean save() {
+        boolean saved = true;
         if (isValidForm()) {
             KeyboardUtils.hideSoftKeyboard(requireActivity());
             SnackbarUtils.snackbar(b.tilCIFLetter, getString(R.string.main_saved_succesfully));
-            getDataCompany();
-            viewModel.insertCompany(viewModel.getCompany());
+            Company company = getDataCompany();
+            if (companyId == 0) {
+                viewModel.insertCompany(company);
+            }else{
+                viewModel.updateCompany(company);
+            }
             navController.navigate(R.id.companyFragment);
         } else {
             KeyboardUtils.hideSoftKeyboard(requireActivity());
@@ -173,20 +207,24 @@ public class AddCompanyFragment extends Fragment {
             checkField(b.tilContactName, b.txtContactName, Field.COMMON);
             checkField(b.tilCIFnumbers, b.txtNumbersCif, Field.COMMON);
             checkField(b.tilCIFLetter, b.txtCIFLetter, Field.COMMON);
+            saved = false;
         }
-
+        return saved;
     }
 
-    private void getDataCompany() {
-        viewModel.getCompany().setName(b.txtName.getText().toString());
-        viewModel.getCompany().setEmail(b.txtEmail.getText().toString());
-        viewModel.getCompany().setPhone(b.txtPhone.getText().toString());
-        viewModel.getCompany().setAddress(b.txtAddress.getText().toString());
-        viewModel.getCompany().setCIF(String.format("%s%s", b.txtCIFLetter.getText().toString(), b.txtNumbersCif.getText().toString()));
+    private Company getDataCompany() {
+        Company company = new Company();
+        company.setName(b.txtName.getText().toString());
+        company.setEmail(b.txtEmail.getText().toString());
+        company.setPhone(b.txtPhone.getText().toString());
+        company.setAddress(b.txtAddress.getText().toString());
+        company.setCIF(String.format("%s%s", b.txtCIFLetter.getText().toString(), b.txtNumbersCif.getText().toString()));
+        company.setNameContactPerson(b.txtContactName.getText().toString());
         if(TextUtils.isEmpty(b.txtUrlLogo.getText().toString())){
-            viewModel.getCompany().setUrlLogo("http://i.imgur.com/DvpvklR.png");
+            company.setUrlLogo("http://i.imgur.com/DvpvklR.png");
         }else{
-            viewModel.getCompany().setUrlLogo(b.txtUrlLogo.getText().toString());
+            company.setUrlLogo(b.txtUrlLogo.getText().toString());
         }
+        return company;
     }
 }

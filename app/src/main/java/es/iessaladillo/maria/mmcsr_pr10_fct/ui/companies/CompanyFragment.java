@@ -19,7 +19,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
@@ -32,10 +34,6 @@ public class CompanyFragment extends Fragment {
     private FragmentCompanyBinding b;
     private CompanyFragmentAdapter listAdapter;
     private NavController navController;
-
-    public static CompanyFragment newInstance() {
-        return new CompanyFragment();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +68,8 @@ public class CompanyFragment extends Fragment {
     }
 
     private void setupViews() {
-        b.fabAddCompany.setOnClickListener(view -> navigateToAddCompany());
-        b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany());
+//        b.fabAddCompany.setOnClickListener(view -> navigateToAddCompany(0)); //Id company default
+        b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(0));
         setupToolbar();
         setupRecyclerView();
     }
@@ -80,21 +78,40 @@ public class CompanyFragment extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(b.toolbar);
     }
 
-    private void navigateToAddCompany() {
-        navController.navigate(R.id.action_companyFragment_to_addCompanyFragment);
+    private void navigateToAddCompany(int currentCompanyId) {
+        Bundle arguments = new Bundle();
+        arguments.putInt("companyId", currentCompanyId);
+        navController.navigate(R.id.action_companyFragment_to_addCompanyFragment, arguments);
     }
 
 
     private void setupRecyclerView() {
         listAdapter = new CompanyFragmentAdapter();
-//        listAdapter.setOnDeleteListener(position -> deleteUser(listAdapter.getItem(position)));
-//        listAdapter.setOnEditableListener((v, position) -> onUserEditListener.onUserEdit(listAdapter.getItem(position)));
+        listAdapter.setOnEditableListener((position) -> navigateToAddCompany((int) listAdapter.getItemId(position)));
         b.lstCompanies.setHasFixedSize(true);
         b.lstCompanies.setLayoutManager(new GridLayoutManager(getActivity(),
                 getResources().getInteger(R.integer.company_lstCompanies_columns)));
         b.lstCompanies.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
         b.lstCompanies.setItemAnimator(new DefaultItemAnimator());
         b.lstCompanies.setAdapter(listAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(
+                        0,
+                        ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView,
+                                          @NonNull RecyclerView.ViewHolder viewHolder,
+                                          @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        // Se elimina el elemento.
+                        viewModel.deleteCompany(listAdapter.getItem(viewHolder.getAdapterPosition()));
+                    }
+                });
+        // Se enlaza con el RecyclerView.
+        itemTouchHelper.attachToRecyclerView(b.lstCompanies);
     }
 
 

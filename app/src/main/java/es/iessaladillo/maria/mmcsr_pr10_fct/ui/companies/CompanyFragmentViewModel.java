@@ -28,4 +28,8 @@ public class CompanyFragmentViewModel extends ViewModel {
     public void updateCompany(Company company){
         repository.updateCompany(company);
     }
+
+    void deleteCompany(Company item) {
+        repository.deleteCompany(item);
+    }
 }

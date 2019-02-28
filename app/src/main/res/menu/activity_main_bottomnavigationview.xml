@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/visitFragment"
+        android:icon="@drawable/ic_visitor"
+        android:title="@string/visits_title"
+        android:menuCategory="secondary"/>
+    <item
+        android:id="@+id/studentFragment"
+        android:icon="@drawable/ic_graduation_hat"
+        android:title="@string/students_title"
+        android:menuCategory="secondary"/>
+    <item
+        android:id="@+id/companyFragment"
+        android:icon="@drawable/ic_company"
+        android:title="@string/companies_title"
+        android:menuCategory="secondary"/>
+</menu>

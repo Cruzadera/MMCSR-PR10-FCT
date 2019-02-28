@@ -3,6 +3,7 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
@@ -35,5 +36,9 @@ public class AddCompanyFragmentViewModel extends ViewModel {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    LiveData<Company> queryCompany(long idCompany){
+        return repository.queryCompany(idCompany);
     }
 }

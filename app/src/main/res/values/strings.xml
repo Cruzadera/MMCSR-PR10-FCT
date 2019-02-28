@@ -15,4 +15,7 @@
     <string name="main_invalid_data">Invalid data</string>
     <string name="main_saved_succesfully">Saved succesfully</string>
     <string name="main_error_saving">Error saving</string>
+    <string name="visits_title">Visits</string>
+    <string name="students_title">Students</string>
+    <string name="companies_title">Companies</string>
 </resources>
