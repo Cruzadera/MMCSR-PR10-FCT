@@ -23,10 +23,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import es.iessaladillo.maria.mmcsr_pr10_fct.R;
+import es.iessaladillo.maria.mmcsr_pr10_fct.base.EventObserver;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.CompanyDao;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentCompanyBinding;
+import es.iessaladillo.maria.mmcsr_pr10_fct.utils.SnackbarUtils;
 
 public class CompanyFragment extends Fragment {
 
@@ -52,12 +54,14 @@ public class CompanyFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        CompanyDao companyDao = AppDatabase.getInstance(getContext()).companyDao();
-        RepositoryImpl repository =  new RepositoryImpl(companyDao);
-        viewModel = ViewModelProviders.of(this, new CompanyFragmentViewModelFactory(repository)).get(CompanyFragmentViewModel.class);
+        viewModel = ViewModelProviders.of(this, new CompanyFragmentViewModelFactory(requireActivity().getApplication(),
+                new RepositoryImpl(AppDatabase.getInstance(requireContext().getApplicationContext()).companyDao())))
+                .get(CompanyFragmentViewModel.class);
         navController = NavHostFragment.findNavController(this);
         setupViews();
         observeCompanies();
+        observeSuccessMessage();
+        observeErrorMessage();
     }
 
     private void observeCompanies() {
@@ -67,8 +71,22 @@ public class CompanyFragment extends Fragment {
         });
     }
 
+    private void observeSuccessMessage() {
+        viewModel.getSuccessMessage().observe(getViewLifecycleOwner(),
+                new EventObserver<>(this::showMessage));
+    }
+
+    private void observeErrorMessage() {
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(),
+                new EventObserver<>(this::showMessage));
+    }
+
+    private void showMessage(String message) {
+        SnackbarUtils.snackbar(b.lblEmptyCompany, message);
+    }
+
     private void setupViews() {
-//        b.fabAddCompany.setOnClickListener(view -> navigateToAddCompany(0)); //Id company default
+        b.fabAddCompany.setOnClickListener(view -> navigateToAddCompany(0)); //Id company default
         b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(0));
         setupToolbar();
         setupRecyclerView();
@@ -80,6 +98,9 @@ public class CompanyFragment extends Fragment {
 
     private void navigateToAddCompany(int currentCompanyId) {
         Bundle arguments = new Bundle();
+        if (currentCompanyId != 0) {
+            arguments.putBoolean("edit", true);
+        }
         arguments.putInt("companyId", currentCompanyId);
         navController.navigate(R.id.action_companyFragment_to_addCompanyFragment, arguments);
     }
@@ -104,6 +125,7 @@ public class CompanyFragment extends Fragment {
                                           @NonNull RecyclerView.ViewHolder target) {
                         return false;
                     }
+
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         // Se elimina el elemento.
@@ -113,7 +135,6 @@ public class CompanyFragment extends Fragment {
         // Se enlaza con el RecyclerView.
         itemTouchHelper.attachToRecyclerView(b.lstCompanies);
     }
-
 
 
 }

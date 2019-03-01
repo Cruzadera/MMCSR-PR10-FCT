@@ -18,4 +18,10 @@
     <string name="visits_title">Visits</string>
     <string name="students_title">Students</string>
     <string name="companies_title">Companies</string>
+    <string name="list_deleted_successfully">Deleted succefully</string>
+    <string name="list_error_deleting">Error deleting</string>
+    <string name="company_inserted_successfully">Inserted succesfully</string>
+    <string name="company_updated_successfully">Updated succefully</string>
+    <string name="company_error_inserting">Error inserting</string>
+    <string name="company_error_updating">Error updating</string>
 </resources>

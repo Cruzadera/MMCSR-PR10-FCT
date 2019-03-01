@@ -2,9 +2,6 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -22,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.squareup.picasso.Picasso;
@@ -30,13 +29,13 @@ import java.util.Objects;
 
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 import es.iessaladillo.maria.mmcsr_pr10_fct.R;
+import es.iessaladillo.maria.mmcsr_pr10_fct.base.EventObserver;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.CompanyDao;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentAddCompanyBinding;
+import es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragmentViewModel;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.Field;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.KeyboardUtils;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.SnackbarUtils;
@@ -46,9 +45,11 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.utils.ValidationUtils;
 public class AddCompanyFragment extends Fragment {
 
     private AddCompanyFragmentViewModel viewModel;
+    private CompanyFragmentViewModel viewModelCompany;
     private FragmentAddCompanyBinding b;
     private NavController navController;
     private long companyId;
+    private boolean edit;
 
     public static AddCompanyFragment newInstance() {
         return new AddCompanyFragment();
@@ -65,18 +66,44 @@ public class AddCompanyFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         navController = NavHostFragment.findNavController(this);
-        CompanyDao companyDao = AppDatabase.getInstance(getContext()).companyDao();
-        RepositoryImpl repository =  new RepositoryImpl(companyDao);
-        viewModel = ViewModelProviders.of(this, new AddCompanyFragmentViewModelFactory(repository)).get(AddCompanyFragmentViewModel.class);
+        viewModel = ViewModelProviders.of(this, new AddCompanyFragmentViewModelFactory(requireActivity().getApplication(),
+                        new RepositoryImpl(AppDatabase.getInstance(requireContext().getApplicationContext())
+                                .companyDao()))).get(AddCompanyFragmentViewModel.class);
         //Get company id
         Objects.requireNonNull(getArguments());
         companyId = getArguments().getInt("companyId");
-        if(companyId == 0){
-            viewModel.setCompany(new Company());
-        }else{
-            viewModel.queryCompany(companyId).observe(getViewLifecycleOwner(), this::dataEditCompany);
-        }
+        edit = getArguments().getBoolean("edit");
         setupViews();
+        if(edit){
+            viewModel.getCompany(companyId).observe(getViewLifecycleOwner(), this::dataEditCompany);
+        }
+        observeSuccessMessage();
+        observeErrorMessage();
+    }
+
+    private void observeSuccessMessage() {
+        viewModel.getSuccessMessage().observe(getViewLifecycleOwner(),
+                new EventObserver<>(this::showMessageAndFinish));
+    }
+
+    private void observeErrorMessage() {
+        viewModel.getErrorMessage().observe(getViewLifecycleOwner(),
+                new EventObserver<>(this::showMessage));
+    }
+
+    private void showMessageAndFinish(String message) {
+        Snackbar.make(b.txtAddress, message, Snackbar.LENGTH_SHORT).addCallback(
+                new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        requireActivity().onBackPressed();
+                    }
+                }).show();
+    }
+
+    private void showMessage(String message) {
+        SnackbarUtils.snackbar(b.tilCIFLetter, message);
     }
 
 
@@ -138,14 +165,11 @@ public class AddCompanyFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.action_addCompanyFragment_to_companyFragment){
-            if (save()) {
-                return NavigationUI.onNavDestinationSelected(item, navController)
-                        || super.onOptionsItemSelected(item);
-            }
+        //Conflicts navigation lib with de action in the item menu
+        if(item.getItemId() == R.id.mnuSave){
+            save();
         }else{
-            return NavigationUI.onNavDestinationSelected(item, navController)
-                    || super.onOptionsItemSelected(item);
+            requireActivity().onBackPressed();
         }
         return true;
     }
@@ -184,13 +208,12 @@ public class AddCompanyFragment extends Fragment {
         return isValid;
     }
 
-    private boolean save() {
-        boolean saved = true;
+    private void save() {
         if (isValidForm()) {
             KeyboardUtils.hideSoftKeyboard(requireActivity());
             SnackbarUtils.snackbar(b.tilCIFLetter, getString(R.string.main_saved_succesfully));
             Company company = getDataCompany();
-            if (companyId == 0) {
+            if (!edit) {
                 viewModel.insertCompany(company);
             }else{
                 viewModel.updateCompany(company);
@@ -207,11 +230,10 @@ public class AddCompanyFragment extends Fragment {
             checkField(b.tilContactName, b.txtContactName, Field.COMMON);
             checkField(b.tilCIFnumbers, b.txtNumbersCif, Field.COMMON);
             checkField(b.tilCIFLetter, b.txtCIFLetter, Field.COMMON);
-            saved = false;
         }
-        return saved;
     }
 
+    @SuppressWarnings("ConstantConditions")
     private Company getDataCompany() {
         Company company = new Company();
         company.setName(b.txtName.getText().toString());

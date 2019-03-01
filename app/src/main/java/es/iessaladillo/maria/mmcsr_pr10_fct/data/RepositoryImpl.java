@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.CompanyDao;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 
@@ -22,13 +24,33 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void insertCompany(Company company) {
-        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> companyDao.insertCompany(company));
+    public LiveData<Resource<Long>> insertCompany(Company company) {
+        MutableLiveData<Resource<Long>> result = new MutableLiveData<>();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            result.postValue(Resource.loading());
+            try {
+                long id = companyDao.insert(company);
+                result.postValue(Resource.success(id));
+            } catch (Exception e) {
+                result.postValue(Resource.error(e));
+            }
+        });
+        return result;
     }
 
     @Override
-    public void deleteCompany(Company company) {
-        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> companyDao.deleteCompany(company));
+    public LiveData<Resource<Integer>> deleteCompany(Company company) {
+        MutableLiveData<Resource<Integer>> result = new MutableLiveData<>();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            result.postValue(Resource.loading());
+            try {
+                int deleted = companyDao.delete(company);
+                result.postValue(Resource.success(deleted));
+            } catch (Exception e) {
+                result.postValue(Resource.error(e));
+            }
+        });
+        return result;
     }
 
     @Override
@@ -37,7 +59,17 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public void updateCompany(Company company) {
-        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> companyDao.updateCompany(company));
+    public LiveData<Resource<Integer>> updateCompany(Company company) {
+        MutableLiveData<Resource<Integer>> result = new MutableLiveData<>();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            result.postValue(Resource.loading());
+            try {
+                int updated = companyDao.update(company);
+                result.postValue(Resource.success(updated));
+            } catch (Exception e) {
+                result.postValue(Resource.error(e));
+            }
+        });
+        return result;
     }
 }

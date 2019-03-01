@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/companyFragment">
+    app:startDestination="@id/visitFragment">
 
     <fragment
         android:id="@+id/companyFragment"
@@ -28,6 +28,10 @@
             android:name="companyId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="edit"
+            app:argType="boolean"
+            android:defaultValue="false" />
         <action
             android:id="@+id/action_addCompanyFragment_to_companyFragment"
             app:destination="@id/companyFragment"

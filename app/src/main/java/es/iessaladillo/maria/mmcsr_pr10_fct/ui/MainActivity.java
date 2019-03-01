@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         navController = Navigation.findNavController(this, R.id.navHostFragment);
-        setupToolbar();
         setupBottomNavigationView();
     }
 
@@ -36,13 +35,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void setupToolbar() {
-        Toolbar toolbar = ActivityCompat.requireViewById(this, R.id.toolbar);
-        setSupportActionBar(toolbar);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.visitFragment, R.id.studentFragment, R.id.companyFragment).build();
-        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-    }
 
     private void setupBottomNavigationView() {
         BottomNavigationView bottomNavigationView = ActivityCompat.requireViewById(this,

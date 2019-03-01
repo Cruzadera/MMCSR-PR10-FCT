@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey;
                 unique = true)})
 public class Company {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name="idCompany")
     private long idCompany;
     @ColumnInfo(name="name")
     private String name;
