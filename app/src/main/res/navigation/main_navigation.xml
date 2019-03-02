@@ -44,10 +44,19 @@
         android:id="@+id/studentFragment"
         android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.students.StudentFragment"
         android:label="fragment_student"
-        tools:layout="@layout/fragment_student" />
+        tools:layout="@layout/fragment_student" >
+        <action
+            android:id="@+id/action_studentFragment_to_addStudentFragment"
+            app:destination="@id/addStudentFragment" />
+    </fragment>
     <fragment
         android:id="@+id/visitFragment"
         android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.visits.VisitFragment"
         android:label="fragment_visit"
         tools:layout="@layout/fragment_visit" />
+    <fragment
+        android:id="@+id/addStudentFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students.AddStudentFragment"
+        android:label="fragment_add_student"
+        tools:layout="@layout/fragment_add_student" />
 </navigation>

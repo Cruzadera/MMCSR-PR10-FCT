@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students.AddStudentViewModel">
+        </variable>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="71dp">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|enterAlways|snap"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="Add student" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNameStudent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/first_top_margin_form"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:focusable="true"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/coordinatorLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtNameStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_name_student"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhoneStudent"
+            android:layout_width="@dimen/width_phone"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:focusable="true"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilNameStudent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPhoneStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_phone"
+                android:inputType="phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imgPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/img_phone_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilNameStudent"
+            app:srcCompat="@drawable/ic_phone_black_24dp" />
+
+        <ImageView
+            android:id="@+id/imgEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toEndOf="@+id/tilPhoneStudent"
+            app:layout_constraintTop_toBottomOf="@+id/tilNameStudent"
+            app:srcCompat="@drawable/ic_email_black_24dp"
+            android:contentDescription="@string/description_img_email" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmailStudent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tilNameStudent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEmailStudent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_email" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spinnerGrade"
+            android:layout_width="120dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="24dp"
+            android:entries="@array/grades"
+            app:layout_constraintStart_toEndOf="@+id/titleGrade"
+            app:layout_constraintTop_toBottomOf="@+id/imgPhone" />
+
+        <ImageView
+            android:id="@+id/imgGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/description_img_grade"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgPhone"
+            app:srcCompat="@drawable/ic_school_black_24dp" />
+
+        <TextView
+            android:id="@+id/titleGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/hint_grade"
+            app:layout_constraintStart_toEndOf="@+id/imgGrade"
+            app:layout_constraintTop_toBottomOf="@+id/imgPhone" />
+
+        <Spinner
+            android:id="@+id/spinnerCompanies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/imgGrade" />
+
+        <ImageView
+            android:id="@+id/imgCompany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:contentDescription="@string/description_icon_company"
+            app:layout_constraintTop_toBottomOf="@+id/imgGrade"
+            app:srcCompat="@drawable/ic_business_center_black_24dp"
+            tools:layout_editor_absoluteX="8dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/hint_company_student"
+            app:layout_constraintStart_toEndOf="@+id/imgCompany"
+            app:layout_constraintTop_toBottomOf="@+id/imgGrade" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTutorName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/imgTutorPhone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgCompany">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtTutorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_labor_tutor_name"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imgTutorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/description_icon_person"
+            app:srcCompat="@drawable/ic_person_black_24dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="313dp" />
+
+        <ImageView
+            android:id="@+id/imgTutorPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/img_phone_description"
+            app:layout_constraintEnd_toStartOf="@+id/tilTutorPhone"
+            app:layout_constraintTop_toBottomOf="@+id/imgCompany"
+            app:srcCompat="@drawable/ic_phone_black_24dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTutorPhone"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgCompany">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtTutorPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_tutor_labor_phone"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imgSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/hint_icon_schedule"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgTutorName"
+            app:srcCompat="@drawable/ic_schedule_black_24dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/imgSchedule"
+            app:layout_constraintTop_toBottomOf="@+id/imgTutorName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtSchedule01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_entry_time"
+                android:inputType="time" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.272"
+            app:layout_constraintStart_toEndOf="@+id/textInputLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/imgTutorName">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_departure_time"
+                android:inputType="time" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

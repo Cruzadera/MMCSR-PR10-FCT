@@ -32,11 +32,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="48dp">
+            android:layout_marginTop="52dp">
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lstCompanies"
+                android:id="@+id/lstCompany"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -54,22 +54,11 @@
                 android:drawableTop="@drawable/ic_add_box_black_24dp"
                 android:drawablePadding="8dp"
                 android:text="@string/lbl_no_companies"
-                app:layout_constraintBottom_toBottomOf="@+id/lstCompanies"
+                app:layout_constraintBottom_toBottomOf="@+id/lstCompany"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lstCompanies" />
+                app:layout_constraintTop_toTopOf="@+id/lstCompany" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabAddCompany"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@android:drawable/ic_input_add"
-                app:layout_anchor="@+id/lstCompanies"
-                app:layout_anchorGravity="right|bottom"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

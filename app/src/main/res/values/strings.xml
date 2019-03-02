@@ -13,15 +13,45 @@
     <string name="lbl_save">Save</string>
     <string name="cif_letter_hint">CIF Letter</string>
     <string name="main_invalid_data">Invalid data</string>
-    <string name="main_saved_succesfully">Saved succesfully</string>
+    <string name="main_saved_succesfully">Saved successfully</string>
     <string name="main_error_saving">Error saving</string>
     <string name="visits_title">Visits</string>
     <string name="students_title">Students</string>
     <string name="companies_title">Companies</string>
-    <string name="list_deleted_successfully">Deleted succefully</string>
+    <string name="list_deleted_successfully">Deleted successfully</string>
     <string name="list_error_deleting">Error deleting</string>
-    <string name="company_inserted_successfully">Inserted succesfully</string>
-    <string name="company_updated_successfully">Updated succefully</string>
+    <string name="company_inserted_successfully">Inserted successfully</string>
+    <string name="company_updated_successfully">Updated successfully</string>
     <string name="company_error_inserting">Error inserting</string>
     <string name="company_error_updating">Error updating</string>
+    <string name="lbl_add_company">New Company</string>
+    <string name="title_name">Name:</string>
+    <string name="title_phone">Phone:</string>
+    <string name="title_grade">Grade:</string>
+    <string name="title_company">Company:</string>
+    <string name="title_tutor_name">Tutor name:</string>
+    <string name="title_tutor_tel">Tutor tel:</string>
+    <string name="lbl_no_students">No students yet</string>
+    <string name="hint_name_student">Name</string>
+    <string name="description_icon_student">Icon student</string>
+    <string name="img_phone_description">Phone icon</string>
+    <string name="hint_grade">Grade:</string>
+    <string name="description_img_email">Email icon</string>
+    <string name="description_img_grade">School icon</string>
+    <string name="hint_labor_tutor_name">Labor tutor name</string>
+    <string name="hint_tutor_labor_phone">Tutor labor phone</string>
+    <string name="description_icon_person">Icon person</string>
+    <string name="hint_company_student">Company:</string>
+    <string name="description_icon_company">Icon company</string>
+    <string name="hint_icon_schedule">Icon schedule</string>
+    <string name="hint_entry_time">Entry time</string>
+    <string name="hint_departure_time">Departure time</string>
+    <string name="adapter_dialog_student">Select company</string>
+    <string-array name="grades">
+        <item>2º DAM</item>
+        <item>2º SMR</item>
+    </string-array>
+    <string-array name="names_companies">
+
+    </string-array>
 </resources>

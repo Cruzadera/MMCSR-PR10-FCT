@@ -1,5 +1,7 @@
 package es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model;
 
+import java.util.Objects;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -41,16 +43,6 @@ public class Company {
     @Ignore
     public Company() {
 
-    }
-    @Ignore
-    public Company(String name, String CIF, String address, String phone, String email, String urlLogo, String nameContactPerson) {
-        this.name = name;
-        this.CIF = CIF;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.urlLogo = urlLogo;
-        this.nameContactPerson = nameContactPerson;
     }
 
     public long getIdCompany() {
@@ -115,5 +107,25 @@ public class Company {
 
     public void setNameContactPerson(String nameContactPerson) {
         this.nameContactPerson = nameContactPerson;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return idCompany == company.idCompany &&
+                Objects.equals(name, company.name) &&
+                Objects.equals(CIF, company.CIF) &&
+                Objects.equals(address, company.address) &&
+                Objects.equals(phone, company.phone) &&
+                Objects.equals(email, company.email) &&
+                Objects.equals(urlLogo, company.urlLogo) &&
+                Objects.equals(nameContactPerson, company.nameContactPerson);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCompany, name, CIF, address, phone, email, urlLogo, nameContactPerson);
     }
 }

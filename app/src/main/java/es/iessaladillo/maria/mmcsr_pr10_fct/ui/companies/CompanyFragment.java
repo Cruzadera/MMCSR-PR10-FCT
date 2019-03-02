@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,7 +28,6 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.EventObserver;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.CompanyDao;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentCompanyBinding;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.SnackbarUtils;
 
@@ -54,14 +55,20 @@ public class CompanyFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         viewModel = ViewModelProviders.of(this, new CompanyFragmentViewModelFactory(requireActivity().getApplication(),
-                new RepositoryImpl(AppDatabase.getInstance(requireContext().getApplicationContext()).companyDao())))
-                .get(CompanyFragmentViewModel.class);
+                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao()))).get(CompanyFragmentViewModel.class);
         navController = NavHostFragment.findNavController(this);
         setupViews();
         observeCompanies();
         observeSuccessMessage();
         observeErrorMessage();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.company_fragment, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void observeCompanies() {
@@ -86,7 +93,6 @@ public class CompanyFragment extends Fragment {
     }
 
     private void setupViews() {
-        b.fabAddCompany.setOnClickListener(view -> navigateToAddCompany(0)); //Id company default
         b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(0));
         setupToolbar();
         setupRecyclerView();
@@ -109,12 +115,12 @@ public class CompanyFragment extends Fragment {
     private void setupRecyclerView() {
         listAdapter = new CompanyFragmentAdapter();
         listAdapter.setOnEditableListener((position) -> navigateToAddCompany((int) listAdapter.getItemId(position)));
-        b.lstCompanies.setHasFixedSize(true);
-        b.lstCompanies.setLayoutManager(new GridLayoutManager(getActivity(),
+        b.lstCompany.setHasFixedSize(true);
+        b.lstCompany.setLayoutManager(new GridLayoutManager(getActivity(),
                 getResources().getInteger(R.integer.company_lstCompanies_columns)));
-        b.lstCompanies.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
-        b.lstCompanies.setItemAnimator(new DefaultItemAnimator());
-        b.lstCompanies.setAdapter(listAdapter);
+        b.lstCompany.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
+        b.lstCompany.setItemAnimator(new DefaultItemAnimator());
+        b.lstCompany.setAdapter(listAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
                 new ItemTouchHelper.SimpleCallback(
                         0,
@@ -133,7 +139,7 @@ public class CompanyFragment extends Fragment {
                     }
                 });
         // Se enlaza con el RecyclerView.
-        itemTouchHelper.attachToRecyclerView(b.lstCompanies);
+        itemTouchHelper.attachToRecyclerView(b.lstCompany);
     }
 
 

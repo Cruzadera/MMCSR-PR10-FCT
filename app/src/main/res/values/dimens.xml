@@ -4,4 +4,5 @@
     <dimen name="margin_top_form">16dp</dimen>
     <dimen name="first_top_margin_form">64dp</dimen>
     <dimen name="witdh_CIF_numbers">300dp</dimen>
+    <dimen name="width_phone">168dp</dimen>
 </resources>

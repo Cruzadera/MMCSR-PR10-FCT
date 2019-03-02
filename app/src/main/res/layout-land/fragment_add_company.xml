@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.add_company.AddCompanyFragment">
+        android:layout_height="match_parent">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
@@ -35,9 +35,7 @@
 
             </com.google.android.material.appbar.AppBarLayout>
 
-
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="wrap_content"
@@ -52,18 +50,14 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilUrlLogo"
-            android:layout_width="0dp"
+            android:layout_width="288dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/first_top_margin_form"
-            android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
             android:focusable="true"
             app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgLogo"
-            app:layout_constraintTop_toTopOf="@+id/coordinatorLayout">
+            app:layout_constraintStart_toEndOf="@+id/imgLogo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtUrlLogo"
@@ -78,12 +72,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilName"
-            android:layout_width="0dp"
+            android:layout_width="365dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgLogo">
 
@@ -99,12 +91,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilAddress"
-            android:layout_width="0dp"
+            android:layout_width="365dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tilName">
 
@@ -122,14 +112,13 @@
             android:id="@+id/tilPhone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/maxlength_phone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
+            app:layout_constraintStart_toEndOf="@+id/tilUrlLogo"
+            app:layout_constraintTop_toTopOf="@+id/tilUrlLogo">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtPhone"
@@ -146,11 +135,11 @@
             android:id="@+id/tilEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tilName"
             app:layout_constraintTop_toBottomOf="@+id/tilPhone">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -167,11 +156,11 @@
             android:id="@+id/tilContactName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tilAddress"
             app:layout_constraintTop_toBottomOf="@+id/tilEmail">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -186,21 +175,19 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCIFnumbers"
-            android:layout_width="204dp"
+            android:layout_width="365dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginTop="16dp"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/maxlength_cif_numbers"
-            app:layout_constraintEnd_toStartOf="@+id/tilCIFLetter"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/coordinatorLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilContactName">
+            app:layout_constraintTop_toBottomOf="@+id/tilAddress">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtNumbersCif"
-                android:layout_width="275dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_cif"
                 android:inputType="number"
@@ -211,11 +198,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilCIFLetter"
-            android:layout_width="131dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             app:counterEnabled="true"
             app:counterMaxLength="@integer/max_length_letter_cif"
             app:layout_constraintEnd_toEndOf="parent"
@@ -231,5 +218,6 @@
                 android:maxLength="@integer/max_length_letter_cif"
                 android:nextFocusForward="@id/txtUrlLogo" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

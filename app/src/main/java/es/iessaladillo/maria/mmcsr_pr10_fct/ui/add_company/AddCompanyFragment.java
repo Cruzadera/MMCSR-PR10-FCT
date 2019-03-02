@@ -65,17 +65,17 @@ public class AddCompanyFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         navController = NavHostFragment.findNavController(this);
         viewModel = ViewModelProviders.of(this, new AddCompanyFragmentViewModelFactory(requireActivity().getApplication(),
-                        new RepositoryImpl(AppDatabase.getInstance(requireContext().getApplicationContext())
-                                .companyDao()))).get(AddCompanyFragmentViewModel.class);
+                        new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao()))).get(AddCompanyFragmentViewModel.class);
         //Get company id
         Objects.requireNonNull(getArguments());
         companyId = getArguments().getInt("companyId");
         edit = getArguments().getBoolean("edit");
         setupViews();
         if(edit){
-            viewModel.getCompany(companyId).observe(getViewLifecycleOwner(), this::dataEditCompany);
+            viewModel.getCompany(companyId).observe(getViewLifecycleOwner(), company -> dataEditCompany(company));
         }
         observeSuccessMessage();
         observeErrorMessage();
@@ -120,7 +120,7 @@ public class AddCompanyFragment extends Fragment {
 
     private void setupViews() {
         setupToolbar();
-        TextWatcherUtils.setAfterTextChangeListener(b.txtUrlLogo, s -> {checkField(b.tilUrlLogo, b.txtUrlLogo, Field.URL_LOGO); changePhoto();});
+        TextWatcherUtils.setAfterTextChangeListener(b.txtUrlLogo, s -> checkField(b.tilUrlLogo, b.txtUrlLogo, Field.URL_LOGO));
         TextWatcherUtils.setAfterTextChangeListener(b.txtName, s -> checkField(b.tilName, b.txtName, Field.COMMON));
         TextWatcherUtils.setAfterTextChangeListener(b.txtAddress, s -> checkField(b.tilAddress, b.txtAddress, Field.COMMON));
         TextWatcherUtils.setAfterTextChangeListener(b.txtPhone, s -> checkField(b.tilPhone, b.txtPhone, Field.PHONENUMBER));
@@ -236,6 +236,7 @@ public class AddCompanyFragment extends Fragment {
     @SuppressWarnings("ConstantConditions")
     private Company getDataCompany() {
         Company company = new Company();
+        company.setIdCompany(companyId);
         company.setName(b.txtName.getText().toString());
         company.setEmail(b.txtEmail.getText().toString());
         company.setPhone(b.txtPhone.getText().toString());
