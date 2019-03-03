@@ -75,7 +75,7 @@ public class AddCompanyFragment extends Fragment {
         edit = getArguments().getBoolean("edit");
         setupViews();
         if(edit){
-            viewModel.getCompany(companyId).observe(getViewLifecycleOwner(), company -> dataEditCompany(company));
+            viewModel.getCompany(companyId).observe(getViewLifecycleOwner(), this::dataEditCompany);
         }
         observeSuccessMessage();
         observeErrorMessage();

@@ -140,7 +140,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public LiveData<String> queryCompanyStudent(long studentId) {
+    public LiveData<Company> queryCompanyStudent(long studentId) {
         return studentDao.getCompanyNameStudent(studentId);
     }
 

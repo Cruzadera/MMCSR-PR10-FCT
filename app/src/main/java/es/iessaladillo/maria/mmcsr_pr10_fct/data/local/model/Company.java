@@ -2,6 +2,7 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model;
 
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -15,6 +16,7 @@ public class Company {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="idCompany")
     private long idCompany;
+    @NonNull
     @ColumnInfo(name="name")
     private String name;
     @ColumnInfo(name="CIF")
@@ -40,6 +42,7 @@ public class Company {
         this.urlLogo = urlLogo;
         this.nameContactPerson = nameContactPerson;
     }
+
     @Ignore
     public Company() {
 

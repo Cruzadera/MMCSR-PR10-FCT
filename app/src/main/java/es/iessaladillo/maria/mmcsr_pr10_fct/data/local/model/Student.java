@@ -5,6 +5,7 @@ import java.util.Objects;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "student")
@@ -39,6 +40,11 @@ public class Student {
         this.laborTutorName = laborTutorName;
         this.laborTutorPhone = laborTutorPhone;
         this.schedule = schedule;
+    }
+
+    @Ignore
+    public Student() {
+
     }
 
     public String getName() {

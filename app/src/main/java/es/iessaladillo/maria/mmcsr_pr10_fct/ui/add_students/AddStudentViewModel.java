@@ -21,7 +21,7 @@ public class AddStudentViewModel extends ViewModel {
     private final Application application;
     private final Repository repository;
     private LiveData<Student> studentLiveData;
-    private LiveData<String> companyLiveData;
+    private LiveData<Company> companyLiveData;
     private LiveData<List<String>> namesCompaniesLiveData;
     private final MutableLiveData<Student> insertTrigger = new MutableLiveData<>();
     private final MutableLiveData<Student> updateTrigger = new MutableLiveData<>();
@@ -77,7 +77,7 @@ public class AddStudentViewModel extends ViewModel {
         return studentLiveData;
     }
 
-    LiveData<String> getCompanyStudent(long studentId){
+    LiveData<Company> getCompanyStudent(long studentId){
         if(companyLiveData == null){
             companyLiveData = repository.queryCompanyStudent(studentId);
         }
@@ -93,11 +93,11 @@ public class AddStudentViewModel extends ViewModel {
         return errorMessage;
     }
 
-    void insertCompany(Student student) {
+    void insertStudent(Student student) {
         insertTrigger.setValue(student);
     }
 
-    void updateCompany(Student student) {
+    void updateStudent(Student student) {
         updateTrigger.setValue(student);
     }
 

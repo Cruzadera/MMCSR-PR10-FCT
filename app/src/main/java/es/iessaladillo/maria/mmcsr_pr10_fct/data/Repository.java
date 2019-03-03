@@ -21,6 +21,6 @@ public interface Repository {
     LiveData<Resource<Integer>> deleteStudent(Student student);
     LiveData<Student> queryStudent(long studentId);
     LiveData<Resource<Integer>> updateStudent(Student student);
-    LiveData<String> queryCompanyStudent(long studentId);
+    LiveData<Company> queryCompanyStudent(long studentId);
     //Visit
 }
