@@ -18,8 +18,5 @@ public interface StudentDao extends BaseDao<Student> {
     LiveData<Student> queryStudent(long studentId);
 
     @Query("SELECT _companyname FROM student WHERE idStudent = :studentId")
-    LiveData<Company> getCompanyNameStudent(long studentId);
-
-    @Query("SELECT _companyname FROM student")
-    LiveData<List<String>> getAllCompaniesNameStudents();
+    LiveData<String> getCompanyNameStudent(long studentId);
 }

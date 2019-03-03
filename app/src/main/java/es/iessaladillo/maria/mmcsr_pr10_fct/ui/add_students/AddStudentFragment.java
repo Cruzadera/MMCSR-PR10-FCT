@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -72,7 +74,7 @@ public class AddStudentFragment extends Fragment {
         getArgumentsStudent();
         navController = NavHostFragment.findNavController(this);
         if(edit){
-            viewModel.getStudent(studentId).observe(getViewLifecycleOwner(), student -> dataEditStudent(student));
+            viewModel.getStudent(studentId).observe(getViewLifecycleOwner(), this::dataEditStudent);
         }
         setupViews();
         observeSuccessMessage();
@@ -106,7 +108,7 @@ public class AddStudentFragment extends Fragment {
 
     private void dataEditStudent(Student student) {
         int positionSpinnerGrade = b.spinnerGrade.getSelectedItemPosition();
-        int positionSpinnerCompany = adapter.getPosition(student.getCompany().getName());
+        int positionSpinnerCompany = b.spinnerCompanies.getSelectedItemPosition();
 
         b.txtNameStudent.setText(student.getName());
         b.txtPhoneStudent.setText(student.getPhone());
@@ -150,11 +152,15 @@ public class AddStudentFragment extends Fragment {
     }
 
     private void getSpinnerData(List<String> stringList) {
-        adapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_dropdown_item_1line,
-                stringList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        b.spinnerCompanies.setAdapter(adapter);
+        if (stringList.size() > 0) {
+            adapter = new ArrayAdapter<>(requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    stringList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            b.spinnerCompanies.setAdapter(adapter);
+        }else{
+            SnackbarUtils.snackbar(b.tilTutorName, getString(R.string.msg_no_companies));
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -165,7 +171,10 @@ public class AddStudentFragment extends Fragment {
         student.setPhone(b.txtPhoneStudent.getText().toString());
         student.setEmail(b.txtEmailStudent.getText().toString());
         student.setGrade(b.spinnerGrade.getSelectedItem().toString());
-        viewModel.getCompanyStudent(student.getIdStudent()).observe(getViewLifecycleOwner(), student::setCompany);
+
+        viewModel.queryCompanyByName(b.spinnerCompanies.getSelectedItem().toString()).
+                observe(getViewLifecycleOwner(), student::setCompany);
+
         student.setLaborTutorName(b.txtTutorName.getText().toString());
         student.setLaborTutorPhone(b.txtTutorPhone.getText().toString());
         student.setSchedule(String.format("%s||%s", b.txtSchedule01.getText().toString(), b.txtSchedule02.getText().toString()));

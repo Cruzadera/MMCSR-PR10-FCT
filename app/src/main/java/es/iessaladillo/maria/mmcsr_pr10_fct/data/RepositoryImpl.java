@@ -82,6 +82,11 @@ public class RepositoryImpl implements Repository {
         return companyDao.queryAllCompanyNames();
     }
 
+    @Override
+    public LiveData<Company> queryAllCompanyByName(String nameCompany) {
+        return companyDao.queryAllCompanyByName(nameCompany);
+    }
+
 
     //---------------------------------------STUDENT------------------------------------------------
     @Override
@@ -140,7 +145,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public LiveData<Company> queryCompanyStudent(long studentId) {
+    public LiveData<String> queryCompanyStudent(long studentId) {
         return studentDao.getCompanyNameStudent(studentId);
     }
 

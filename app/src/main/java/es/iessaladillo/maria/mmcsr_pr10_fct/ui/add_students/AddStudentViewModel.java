@@ -3,7 +3,6 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students;
 import android.app.Application;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentMap;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -21,7 +20,8 @@ public class AddStudentViewModel extends ViewModel {
     private final Application application;
     private final Repository repository;
     private LiveData<Student> studentLiveData;
-    private LiveData<Company> companyLiveData;
+    private LiveData<String> companyLiveData;
+    private LiveData<Company> companyLiveDataByName;
     private LiveData<List<String>> namesCompaniesLiveData;
     private final MutableLiveData<Student> insertTrigger = new MutableLiveData<>();
     private final MutableLiveData<Student> updateTrigger = new MutableLiveData<>();
@@ -77,11 +77,19 @@ public class AddStudentViewModel extends ViewModel {
         return studentLiveData;
     }
 
-    LiveData<Company> getCompanyStudent(long studentId){
+    LiveData<String> getCompanyStudent(long studentId){
         if(companyLiveData == null){
             companyLiveData = repository.queryCompanyStudent(studentId);
         }
         return companyLiveData;
+    }
+
+    LiveData<Company> queryCompanyByName(String companyName){
+        if(companyLiveDataByName == null){
+            companyLiveDataByName = repository.queryAllCompanyByName(companyName);
+        }
+
+        return companyLiveDataByName;
     }
 
 

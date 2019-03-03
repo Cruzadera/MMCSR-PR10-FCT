@@ -23,4 +23,7 @@ public interface CompanyDao extends BaseDao<Company> {
 
     @Query("SELECT name FROM company")
     LiveData<List<String>> queryAllCompanyNames();
+
+    @Query("SELECT * FROM COMPANY WHERE name = :nameCompany")
+    LiveData<Company>  queryAllCompanyByName(String nameCompany);
 }

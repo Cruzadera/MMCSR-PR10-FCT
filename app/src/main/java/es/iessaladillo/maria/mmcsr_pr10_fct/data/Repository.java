@@ -15,12 +15,13 @@ public interface Repository {
     LiveData<Company> queryCompany(long companyId);
     LiveData<Resource<Integer>> updateCompany(Company company);
     LiveData<List<String>> queryAllCompanyNames();
+    LiveData<Company>  queryAllCompanyByName(String nameCompany);
     //Student
     LiveData<List<Student>> queryStudents();
     LiveData<Resource<Long>> insertStudent(Student student);
     LiveData<Resource<Integer>> deleteStudent(Student student);
     LiveData<Student> queryStudent(long studentId);
     LiveData<Resource<Integer>> updateStudent(Student student);
-    LiveData<Company> queryCompanyStudent(long studentId);
+    LiveData<String> queryCompanyStudent(long studentId);
     //Visit
 }

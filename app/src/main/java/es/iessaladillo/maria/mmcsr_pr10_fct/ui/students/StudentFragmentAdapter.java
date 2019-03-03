@@ -83,8 +83,8 @@ public class StudentFragmentAdapter extends ListAdapter<Student, StudentFragment
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            lblName = ViewCompat.requireViewById(itemView, R.id.lblName);
-            lblPhone = ViewCompat.requireViewById(itemView, R.id.lblPhone);
+            lblName = ViewCompat.requireViewById(itemView, R.id.lblNameStudent);
+            lblPhone = ViewCompat.requireViewById(itemView, R.id.lblPhoneStudent);
             lblGrade = ViewCompat.requireViewById(itemView, R.id.lblGrade);
             lblCompanyName = ViewCompat.requireViewById(itemView, R.id.lblCompany);
             lblTutorName = ViewCompat.requireViewById(itemView, R.id.lblTutorName);
@@ -96,7 +96,7 @@ public class StudentFragmentAdapter extends ListAdapter<Student, StudentFragment
             lblName.setText(student.getName());
             lblPhone.setText(student.getPhone());
             lblGrade.setText(student.getEmail());
-            lblCompanyName.setText(student.getCompany().getName());
+            //lblCompanyName.setText(student.getCompany().toString());
             lblTutorPhone.setText(student.getLaborTutorPhone());
             lblTutorName.setText(student.getLaborTutorName());
         }

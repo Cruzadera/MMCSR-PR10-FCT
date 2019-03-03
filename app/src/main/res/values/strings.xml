@@ -47,6 +47,7 @@
     <string name="hint_entry_time">Entry time</string>
     <string name="hint_departure_time">Departure time</string>
     <string name="adapter_dialog_student">Select company</string>
+    <string name="msg_no_companies">You have to add at least one company</string>
     <string-array name="grades">
         <item>2º DAM</item>
         <item>2º SMR</item>

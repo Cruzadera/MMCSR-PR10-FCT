@@ -16,7 +16,6 @@ public class Company {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="idCompany")
     private long idCompany;
-    @NonNull
     @ColumnInfo(name="name")
     private String name;
     @ColumnInfo(name="CIF")
