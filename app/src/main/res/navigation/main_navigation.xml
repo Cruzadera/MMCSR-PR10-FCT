@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/companyFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.CompanyFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragment"
         android:label="fragment_company"
         tools:layout="@layout/fragment_company" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCompanyFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.AddCompanyFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company.AddCompanyFragment"
         android:label="fragment_add_company"
         tools:layout="@layout/fragment_add_company" >
         <argument
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.StudentFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.students.StudentFragment"
         android:label="fragment_student"
         tools:layout="@layout/fragment_student" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/visitFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.VisitFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.visits.VisitFragment"
         android:label="fragment_visit"
         tools:layout="@layout/fragment_visit" >
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/addStudentFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.AddStudentFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students.AddStudentFragment"
         android:label="fragment_add_student"
         tools:layout="@layout/fragment_add_student" >
     <argument
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/addVisitFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.AddVisitFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_visit.AddVisitFragment"
         android:label="add_visit_fragment"
         tools:layout="@layout/add_visit_fragment">
         <argument

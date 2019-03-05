@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.students;
 
 import android.app.Application;
 
@@ -13,20 +13,20 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Event;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
 
-class VisitFragmentViewModel extends ViewModel {
+class StudentFragmentViewModel extends ViewModel {
     private final Application application;
-    private final LiveData<List<Visit>> visits;
-    private final MutableLiveData<Visit> deleteTrigger = new MutableLiveData<>();
+    private final LiveData<List<Student>> students;
+    private final MutableLiveData<Student> deleteTrigger = new MutableLiveData<>();
     private final LiveData<Resource<Integer>> deletionResult;
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
     private final MediatorLiveData<Event<String>> errorMessage = new MediatorLiveData<>();
 
-    VisitFragmentViewModel(Application application, Repository repository) {
+    StudentFragmentViewModel(Application application, Repository repository) {
         this.application = application;
-        visits = repository.queryVisits();
-        deletionResult = Transformations.switchMap(deleteTrigger, repository::deleteVisit);
+        students = repository.queryStudents();
+        deletionResult = Transformations.switchMap(deleteTrigger, repository::deleteStudent);
         setupSuccessMessage();
         setupErrorMessage();
     }
@@ -47,8 +47,8 @@ class VisitFragmentViewModel extends ViewModel {
         });
     }
 
-    LiveData<List<Visit>> getVisits() {
-        return visits;
+    LiveData<List<Student>> getStudents() {
+        return students;
     }
 
     LiveData<Event<String>> getSuccessMessage() {
@@ -59,7 +59,7 @@ class VisitFragmentViewModel extends ViewModel {
         return errorMessage;
     }
 
-    void deleteStudent(Visit visit) {
-        deleteTrigger.setValue(visit);
+    void deleteStudent(Student student) {
+        deleteTrigger.setValue(student);
     }
 }

@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_visit;
 
 import android.app.Application;
 

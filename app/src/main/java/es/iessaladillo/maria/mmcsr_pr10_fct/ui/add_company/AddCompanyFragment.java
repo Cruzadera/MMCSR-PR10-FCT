@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -35,6 +35,7 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentAddCompanyBinding;
+import es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragmentViewModel;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.Field;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.KeyboardUtils;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.SnackbarUtils;
@@ -67,7 +68,7 @@ public class AddCompanyFragment extends Fragment {
         AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         navController = NavHostFragment.findNavController(this);
         viewModel = ViewModelProviders.of(this, new AddCompanyFragmentViewModelFactory(requireActivity().getApplication(),
-                        new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), visitDao))).get(AddCompanyFragmentViewModel.class);
+                        new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), appDatabase.visitDao()))).get(AddCompanyFragmentViewModel.class);
         //Get company id
         Objects.requireNonNull(getArguments());
         companyId = getArguments().getInt("companyId");
