@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Companies</string>
+    <string name="app_name">FCT</string>
     <string name="description_imgLogo">Company logo</string>
     <string name="lbl_no_companies">No companies yet</string>
-    <string name="hint_url_logo">Url company logo</string>
+    <string name="hint_url_logo">Url nameCompany logo</string>
     <string name="hint_name">Company name</string>
     <string name="hint_address">Address</string>
     <string name="hint_phone">Phone number</string>
@@ -42,12 +42,22 @@
     <string name="hint_tutor_labor_phone">Tutor labor phone</string>
     <string name="description_icon_person">Icon person</string>
     <string name="hint_company_student">Company:</string>
-    <string name="description_icon_company">Icon company</string>
+    <string name="description_icon_company">Icon nameCompany</string>
     <string name="hint_icon_schedule">Icon schedule</string>
     <string name="hint_entry_time">Entry time</string>
     <string name="hint_departure_time">Departure time</string>
-    <string name="adapter_dialog_student">Select company</string>
-    <string name="msg_no_companies">You have to add at least one company</string>
+    <string name="adapter_dialog_student">Select nameCompany</string>
+    <string name="msg_no_companies">You have to add at least one name company</string>
+    <string name="lbl_new_student">New student</string>
+    <string name="lbl_no_visits">No visits yet</string>
+    <string name="title_date">Date:</string>
+    <string name="title_start_time">Start time:</string>
+    <string name="title_end_time">End time:</string>
+    <string name="title_add_visit">Add Visit</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_start_time">Start time</string>
+    <string name="hint_end_time">End time</string>
+    <string name="hint_observations">Observations</string>
     <string-array name="grades">
         <item>2º DAM</item>
         <item>2º SMR</item>

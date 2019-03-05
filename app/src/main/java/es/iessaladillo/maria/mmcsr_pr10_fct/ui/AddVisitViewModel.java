@@ -1,8 +1,6 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.app.Application;
-
-import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -13,29 +11,24 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Event;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 
-public class AddStudentViewModel extends ViewModel {
+class AddVisitViewModel extends ViewModel {
     private final Application application;
     private final Repository repository;
-    private LiveData<Student> studentLiveData;
-    private LiveData<String> companyLiveData;
-    private LiveData<Company> companyLiveDataByName;
-    private LiveData<List<String>> namesCompaniesLiveData;
-    private final MutableLiveData<Student> insertTrigger = new MutableLiveData<>();
-    private final MutableLiveData<Student> updateTrigger = new MutableLiveData<>();
+    private LiveData<Visit> visitLiveData;
+    private final MutableLiveData<Visit> insertTrigger = new MutableLiveData<>();
+    private final MutableLiveData<Visit> updateTrigger = new MutableLiveData<>();
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
     private final MediatorLiveData<Event<String>> errorMessage = new MediatorLiveData<>();
     private final LiveData<Resource<Long>> insertResult;
     private final LiveData<Resource<Integer>> updateResult;
 
-    AddStudentViewModel(Application application, Repository repository) {
+    AddVisitViewModel(Application application, Repository repository) {
         this.application = application;
         this.repository = repository;
-        namesCompaniesLiveData = repository.queryAllCompanyNames();
-        insertResult = Transformations.switchMap(insertTrigger, repository::insertStudent);
-        updateResult = Transformations.switchMap(updateTrigger, repository::updateStudent);
+        insertResult = Transformations.switchMap(insertTrigger, repository::insertVisit);
+        updateResult = Transformations.switchMap(updateTrigger, repository::updateVisit);
         setupSuccessMessage();
         setupErrorMessage();
     }
@@ -70,28 +63,12 @@ public class AddStudentViewModel extends ViewModel {
         });
     }
 
-    LiveData<Student> getStudent(long studentId) {
-        if (studentLiveData == null) {
-            studentLiveData = repository.queryStudent(studentId);
+    LiveData<Visit> getVisit(long visitId) {
+        if (visitLiveData == null) {
+            visitLiveData = repository.queryVisit(visitId);
         }
-        return studentLiveData;
+        return visitLiveData;
     }
-
-    LiveData<String> getCompanyStudent(long studentId){
-        if(companyLiveData == null){
-            companyLiveData = repository.queryCompanyStudent(studentId);
-        }
-        return companyLiveData;
-    }
-
-    LiveData<Company> queryCompanyByName(String companyName){
-        if(companyLiveDataByName == null){
-            companyLiveDataByName = repository.queryAllCompanyByName(companyName);
-        }
-
-        return companyLiveDataByName;
-    }
-
 
     LiveData<Event<String>> getSuccessMessage() {
         return successMessage;
@@ -101,15 +78,11 @@ public class AddStudentViewModel extends ViewModel {
         return errorMessage;
     }
 
-    void insertStudent(Student student) {
-        insertTrigger.setValue(student);
+    void insertVisit(Visit visit) {
+        insertTrigger.setValue(visit);
     }
 
-    void updateStudent(Student student) {
-        updateTrigger.setValue(student);
-    }
-
-    LiveData<List<String>> getNamesCompaniesLiveData() {
-        return namesCompaniesLiveData;
+    void updateVisit(Visit visit) {
+        updateTrigger.setValue(visit);
     }
 }

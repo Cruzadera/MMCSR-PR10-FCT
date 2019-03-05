@@ -3,12 +3,17 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model;
 import java.util.Objects;
 
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "student")
+@Entity(tableName = "student",
+        foreignKeys = @ForeignKey(entity = Company.class,
+        parentColumns = "name",
+        childColumns = "nameCompany"),
+        indices=@Index(value="name"))
 public class Student {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="idStudent")
@@ -21,8 +26,8 @@ public class Student {
     private String email;
     @ColumnInfo(name="grade")
     private String grade;
-    @Embedded(prefix = "_company")
-    private Company company;
+    @ColumnInfo(name="nameCompany")
+    private String nameCompany;
     @ColumnInfo(name="laborTutorName")
     private String laborTutorName;
     @ColumnInfo(name="laborTutorPhone")
@@ -30,13 +35,13 @@ public class Student {
     @ColumnInfo(name="schedule")
     private String schedule;
 
-    public Student(long idStudent, String name, String phone, String email, String grade, Company company, String laborTutorName, String laborTutorPhone, String schedule) {
+    public Student(long idStudent, String name, String phone, String email, String grade, String nameCompany, String laborTutorName, String laborTutorPhone, String schedule) {
         this.idStudent = idStudent;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.grade = grade;
-        this.company = company;
+        this.nameCompany = nameCompany;
         this.laborTutorName = laborTutorName;
         this.laborTutorPhone = laborTutorPhone;
         this.schedule = schedule;
@@ -45,6 +50,15 @@ public class Student {
     @Ignore
     public Student() {
 
+    }
+
+
+    public long getIdStudent() {
+        return idStudent;
+    }
+
+    public void setIdStudent(long idStudent) {
+        this.idStudent = idStudent;
     }
 
     public String getName() {
@@ -79,12 +93,12 @@ public class Student {
         this.grade = grade;
     }
 
-    public Company getCompany() {
-        return company;
+    public String getNameCompany() {
+        return nameCompany;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setNameCompany(String nameCompany) {
+        this.nameCompany = nameCompany;
     }
 
     public String getLaborTutorName() {
@@ -109,34 +123,5 @@ public class Student {
 
     public void setSchedule(String schedule) {
         this.schedule = schedule;
-    }
-
-    public long getIdStudent() {
-        return idStudent;
-    }
-
-    public void setIdStudent(long idStudent) {
-        this.idStudent = idStudent;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return idStudent == student.idStudent &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(phone, student.phone) &&
-                Objects.equals(email, student.email) &&
-                Objects.equals(grade, student.grade) &&
-                Objects.equals(company, student.company) &&
-                Objects.equals(laborTutorName, student.laborTutorName) &&
-                Objects.equals(laborTutorPhone, student.laborTutorPhone) &&
-                Objects.equals(schedule, student.schedule);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(idStudent, name, phone, email, grade, company, laborTutorName, laborTutorPhone, schedule);
     }
 }

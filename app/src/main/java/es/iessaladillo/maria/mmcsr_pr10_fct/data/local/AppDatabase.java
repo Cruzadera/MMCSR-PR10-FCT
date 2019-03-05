@@ -6,8 +6,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 
-@Database(entities = {Company.class, Student.class}, version = 1)
+@Database(entities = {Company.class, Student.class, Visit.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "fct.db";
@@ -15,6 +16,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract CompanyDao companyDao();
 
     public abstract StudentDao studentDao();
+
+    public abstract VisitDao visitDao();
 
     private static volatile AppDatabase instance;
 

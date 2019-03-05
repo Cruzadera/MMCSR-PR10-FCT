@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.students;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -6,21 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import es.iessaladillo.maria.mmcsr_pr10_fct.R;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
-import es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragmentAdapter;
 
 public class StudentFragmentAdapter extends ListAdapter<Student, StudentFragmentAdapter.ViewHolder> {
 
-    interface OnEditableListener{
+    public interface OnEditableListener{
         void onEdit(int position);
     }
 
@@ -96,7 +92,7 @@ public class StudentFragmentAdapter extends ListAdapter<Student, StudentFragment
             lblName.setText(student.getName());
             lblPhone.setText(student.getPhone());
             lblGrade.setText(student.getEmail());
-            //lblCompanyName.setText(student.getCompany().toString());
+            lblCompanyName.setText(student.getNameCompany());
             lblTutorPhone.setText(student.getLaborTutorPhone());
             lblTutorName.setText(student.getLaborTutorName());
         }

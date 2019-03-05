@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.app.Application;
 

@@ -30,7 +30,7 @@
                     android:background="?attr/colorPrimary"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="Add company" />
+                    app:title="Add nameCompany" />
 
 
             </com.google.android.material.appbar.AppBarLayout>

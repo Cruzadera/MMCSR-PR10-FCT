@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.students;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.app.Application;
 
@@ -13,20 +13,21 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Event;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 
-class StudentFragmentViewModel extends ViewModel {
+public class CompanyFragmentViewModel extends ViewModel {
+
     private final Application application;
-    private final LiveData<List<Student>> students;
-    private final MutableLiveData<Student> deleteTrigger = new MutableLiveData<>();
+    private final LiveData<List<Company>> companies;
+    private final MutableLiveData<Company> deleteTrigger = new MutableLiveData<>();
     private final LiveData<Resource<Integer>> deletionResult;
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
     private final MediatorLiveData<Event<String>> errorMessage = new MediatorLiveData<>();
 
-    StudentFragmentViewModel(Application application, Repository repository) {
+    CompanyFragmentViewModel(Application application, Repository repository) {
         this.application = application;
-        students = repository.queryStudents();
-        deletionResult = Transformations.switchMap(deleteTrigger, repository::deleteStudent);
+        companies = repository.queryAllCompany();
+        deletionResult = Transformations.switchMap(deleteTrigger, repository::deleteCompany);
         setupSuccessMessage();
         setupErrorMessage();
     }
@@ -47,8 +48,8 @@ class StudentFragmentViewModel extends ViewModel {
         });
     }
 
-    LiveData<List<Student>> getStudents() {
-        return students;
+    LiveData<List<Company>> getCompanies() {
+        return companies;
     }
 
     LiveData<Event<String>> getSuccessMessage() {
@@ -59,7 +60,7 @@ class StudentFragmentViewModel extends ViewModel {
         return errorMessage;
     }
 
-    void deleteStudent(Student student) {
-        deleteTrigger.setValue(student);
+    void deleteCompany(Company company) {
+        deleteTrigger.setValue(company);
     }
 }

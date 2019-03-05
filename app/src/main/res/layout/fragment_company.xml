@@ -51,7 +51,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:drawableTop="@drawable/ic_add_box_black_24dp"
+                android:drawableTop="@drawable/ic_add_to_photos_black_24dp"
                 android:drawablePadding="8dp"
                 android:text="@string/lbl_no_companies"
                 app:layout_constraintBottom_toBottomOf="@+id/lstCompany"

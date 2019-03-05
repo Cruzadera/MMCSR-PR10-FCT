@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/companyFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.CompanyFragment"
         android:label="fragment_company"
         tools:layout="@layout/fragment_company" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/addCompanyFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_company.AddCompanyFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.AddCompanyFragment"
         android:label="fragment_add_company"
         tools:layout="@layout/fragment_add_company" >
         <argument
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/studentFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.students.StudentFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.StudentFragment"
         android:label="fragment_student"
         tools:layout="@layout/fragment_student" >
         <action
@@ -52,8 +52,41 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+    <fragment
+        android:id="@+id/visitFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.VisitFragment"
+        android:label="fragment_visit"
+        tools:layout="@layout/fragment_visit" >
+        <action
+            android:id="@+id/action_visitFragment_to_addVisitFragment"
+            app:destination="@id/addVisitFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStudentFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.AddStudentFragment"
+        android:label="fragment_add_student"
+        tools:layout="@layout/fragment_add_student" >
+    <argument
+        android:name="studentId"
+        app:argType="integer"
+        android:defaultValue="0" />
+    <argument
+        android:name="edit"
+        app:argType="boolean"
+        android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/addVisitFragment"
+        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.AddVisitFragment"
+        android:label="add_visit_fragment"
+        tools:layout="@layout/add_visit_fragment">
         <argument
-            android:name="studentId"
+            android:name="visitId"
             app:argType="integer"
             android:defaultValue="0" />
         <argument
@@ -61,14 +94,4 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>
-    <fragment
-        android:id="@+id/visitFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.visits.VisitFragment"
-        android:label="fragment_visit"
-        tools:layout="@layout/fragment_visit" />
-    <fragment
-        android:id="@+id/addStudentFragment"
-        android:name="es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students.AddStudentFragment"
-        android:label="fragment_add_student"
-        tools:layout="@layout/fragment_add_student" />
 </navigation>

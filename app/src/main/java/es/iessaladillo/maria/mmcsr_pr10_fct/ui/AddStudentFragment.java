@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_students;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -28,7 +26,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.List;
 import java.util.Objects;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -36,7 +33,6 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.EventObserver;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
-import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentAddStudentBinding;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.Field;
@@ -50,7 +46,6 @@ public class AddStudentFragment extends Fragment {
     private AddStudentViewModel viewModel;
     private FragmentAddStudentBinding b;
     private NavController navController;
-    private ArrayAdapter<String> adapter;
     private int studentId;
     private boolean edit;
 
@@ -70,8 +65,10 @@ public class AddStudentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         viewModel = ViewModelProviders.of(this, new AddStudentFragmentViewModelFactory(requireActivity().getApplication(),
-                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao()))).get(AddStudentViewModel.class);
-        getArgumentsStudent();
+                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), appDatabase.visitDao()))).get(AddStudentViewModel.class);
+        Objects.requireNonNull(getArguments());
+        studentId = getArguments().getInt("studentId");
+        edit = getArguments().getBoolean("edit");
         navController = NavHostFragment.findNavController(this);
         if(edit){
             viewModel.getStudent(studentId).observe(getViewLifecycleOwner(), this::dataEditStudent);
@@ -117,14 +114,8 @@ public class AddStudentFragment extends Fragment {
         b.spinnerCompanies.setSelection(positionSpinnerCompany);
         b.txtTutorPhone.setText(student.getLaborTutorPhone());
         b.txtTutorName.setText(student.getLaborTutorName());
-        b.txtSchedule01.setText(student.getSchedule().substring(0, 6));
-        b.txtSchedule02.setText(student.getSchedule().substring(6));
-    }
-
-    private void getArgumentsStudent() {
-        Objects.requireNonNull(getArguments());
-        studentId = getArguments().getInt("studentId");
-        edit = getArguments().getBoolean("edit");
+        b.txtSchedule01.setText(student.getSchedule().substring(0, 5));
+        b.txtSchedule02.setText(student.getSchedule().substring(7));
     }
 
     private void setupViews() {
@@ -153,13 +144,14 @@ public class AddStudentFragment extends Fragment {
 
     private void getSpinnerData(List<String> stringList) {
         if (stringList.size() > 0) {
-            adapter = new ArrayAdapter<>(requireContext(),
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                     android.R.layout.simple_dropdown_item_1line,
                     stringList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             b.spinnerCompanies.setAdapter(adapter);
         }else{
             SnackbarUtils.snackbar(b.tilTutorName, getString(R.string.msg_no_companies));
+            navController.navigate(R.id.studentFragment);
         }
     }
 
@@ -171,10 +163,7 @@ public class AddStudentFragment extends Fragment {
         student.setPhone(b.txtPhoneStudent.getText().toString());
         student.setEmail(b.txtEmailStudent.getText().toString());
         student.setGrade(b.spinnerGrade.getSelectedItem().toString());
-
-        viewModel.queryCompanyByName(b.spinnerCompanies.getSelectedItem().toString()).
-                observe(getViewLifecycleOwner(), student::setCompany);
-
+        student.setNameCompany(b.spinnerCompanies.getSelectedItem().toString());
         student.setLaborTutorName(b.txtTutorName.getText().toString());
         student.setLaborTutorPhone(b.txtTutorPhone.getText().toString());
         student.setSchedule(String.format("%s||%s", b.txtSchedule01.getText().toString(), b.txtSchedule02.getText().toString()));
@@ -247,16 +236,16 @@ public class AddStudentFragment extends Fragment {
     private boolean checkField(TextInputLayout label, TextInputEditText txt, Field field){
         boolean isValid;
         if (field == Field.EMAIL && !ValidationUtils.isValidEmail(txt.getText().toString())) {
-            isValid = invalidateField(label, txt, field);
+            isValid = false;
 
         } else if (field == Field.PHONENUMBER && !ValidationUtils.isValidSpanishPhoneNumber(txt.getText().toString())) {
-            isValid = invalidateField(label, txt, field);
+            isValid = false;
 
         } else if (field == Field.HOUR && !ValidationUtils.isValidHour(txt.getText().toString())) {
-            isValid = invalidateField(label, txt, field);
+            isValid = false;
 
         } else if (field == Field.COMMON && !ValidationUtils.isEmptyText(txt.getText().toString())) {
-            isValid = invalidateField(label, txt, field);
+            isValid = false;
 
         } else {
             label.setEnabled(true);
@@ -265,11 +254,4 @@ public class AddStudentFragment extends Fragment {
         return isValid;
     }
 
-
-    private boolean invalidateField(TextInputLayout label, TextInputEditText txt, Field field) {
-        txt.setError(getString(R.string.main_invalid_data));
-        return false;
-    }
-
-    
 }

@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -57,7 +57,7 @@ public class CompanyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         viewModel = ViewModelProviders.of(this, new CompanyFragmentViewModelFactory(requireActivity().getApplication(),
-                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao()))).get(CompanyFragmentViewModel.class);
+                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), appDatabase.visitDao()))).get(CompanyFragmentViewModel.class);
         navController = NavHostFragment.findNavController(this);
         setupViews();
         observeCompanies();
@@ -93,7 +93,7 @@ public class CompanyFragment extends Fragment {
     }
 
     private void setupViews() {
-        b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(0));
+        b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(R.integer.defaultValorAdd));
         setupToolbar();
         setupRecyclerView();
     }

@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.add_company.AddCompanyFragment">
+        tools:context=".ui.AddCompanyFragment">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
@@ -30,7 +30,7 @@
                     android:background="?attr/colorPrimary"
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="Add company" />
+                    app:title="Add nameCompany" />
 
 
             </com.google.android.material.appbar.AppBarLayout>

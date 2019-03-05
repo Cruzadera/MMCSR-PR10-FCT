@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_studentFragment_to_addStudentFragment"
-        android:title="@string/lbl_add_company"
+        android:title="@string/lbl_new_student"
         android:menuCategory="secondary"
         android:icon="@drawable/ic_add_circle_white_24dp"
         app:showAsAction="ifRoom|withText"/>

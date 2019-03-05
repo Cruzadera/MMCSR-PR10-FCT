@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -99,7 +99,7 @@ public class CompanyFragmentAdapter extends ListAdapter<Company, CompanyFragment
             lblAddress.setText(company.getAddress());
             lblPersonNameContact.setText(company.getNameContactPerson());
             Picasso.with(itemView.getContext()).load(company.getUrlLogo())
-                    .error(R.mipmap.ic_launcher)
+                    .error(R.drawable.ic_enterprise)
                     .resize(200, 200)
                     .into(imgLogo);
         }

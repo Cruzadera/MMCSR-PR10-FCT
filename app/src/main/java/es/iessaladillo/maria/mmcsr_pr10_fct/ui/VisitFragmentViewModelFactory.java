@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import android.app.Application;
 
@@ -7,12 +7,11 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
 
-public class CompanyFragmentViewModelFactory implements ViewModelProvider.Factory {
-
+public class VisitFragmentViewModelFactory implements ViewModelProvider.Factory{
     private final Application application;
     private final Repository repository;
 
-    CompanyFragmentViewModelFactory(@NonNull Application application, @NonNull Repository repository) {
+    VisitFragmentViewModelFactory(@NonNull Application application, @NonNull Repository repository) {
         this.application = application;
         this.repository = repository;
     }
@@ -21,11 +20,10 @@ public class CompanyFragmentViewModelFactory implements ViewModelProvider.Factor
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(CompanyFragmentViewModel.class)) {
-            return (T) new CompanyFragmentViewModel(application, repository);
+        if (modelClass.isAssignableFrom(VisitFragmentViewModel.class)) {
+            return (T) new VisitFragmentViewModel(application, repository);
         } else {
             throw new IllegalArgumentException("Wrong viewModel class");
         }
     }
-
 }

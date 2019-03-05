@@ -9,17 +9,21 @@ import androidx.lifecycle.MutableLiveData;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.CompanyDao;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.StudentDao;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.VisitDao;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Company;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 
 public class RepositoryImpl implements Repository {
 
     private final CompanyDao companyDao;
     private final StudentDao studentDao;
+    private final VisitDao visitDao;
 
-    public RepositoryImpl(CompanyDao companyDao, StudentDao studentDao) {
+    public RepositoryImpl(CompanyDao companyDao, StudentDao studentDao, VisitDao visitDao) {
         this.companyDao = companyDao;
         this.studentDao = studentDao;
+        this.visitDao = visitDao;
     }
     //-----------------------------------------COMPANY----------------------------------------------
     @Override
@@ -83,7 +87,7 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public LiveData<Company> queryAllCompanyByName(String nameCompany) {
+    public LiveData<String> queryAllCompanyByName(String nameCompany) {
         return companyDao.queryAllCompanyByName(nameCompany);
     }
 
@@ -144,9 +148,62 @@ public class RepositoryImpl implements Repository {
         return result;
     }
 
+    //-----------------------------------------VISIT------------------------------------------------
+
     @Override
-    public LiveData<String> queryCompanyStudent(long studentId) {
-        return studentDao.getCompanyNameStudent(studentId);
+    public LiveData<Resource<Long>> insertVisit(Visit visit) {
+        MutableLiveData<Resource<Long>> result = new MutableLiveData<>();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            result.postValue(Resource.loading());
+            try {
+                long id = visitDao.insert(visit);
+                result.postValue(Resource.success(id));
+            } catch (Exception e) {
+                result.postValue(Resource.error(e));
+            }
+        });
+        return result;
     }
+
+    @Override
+    public LiveData<Resource<Integer>> deleteVisit(Visit visit) {
+        MutableLiveData<Resource<Integer>> result = new MutableLiveData<>();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            result.postValue(Resource.loading());
+            try {
+                int deleted = visitDao.delete(visit);
+                result.postValue(Resource.success(deleted));
+            } catch (Exception e) {
+                result.postValue(Resource.error(e));
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public LiveData<Resource<Integer>> updateVisit(Visit visit) {
+        MutableLiveData<Resource<Integer>> result = new MutableLiveData<>();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            result.postValue(Resource.loading());
+            try {
+                int updated = visitDao.update(visit);
+                result.postValue(Resource.success(updated));
+            } catch (Exception e) {
+                result.postValue(Resource.error(e));
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public LiveData<List<Visit>> queryVisits() {
+        return visitDao.queryVisits();
+    }
+
+    @Override
+    public LiveData<Visit> queryVisit(long visitId) {
+        return visitDao.queryVisit(visitId);
+    }
+
 
 }

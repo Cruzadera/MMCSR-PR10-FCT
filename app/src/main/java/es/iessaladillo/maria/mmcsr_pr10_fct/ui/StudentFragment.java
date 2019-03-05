@@ -1,4 +1,4 @@
-package es.iessaladillo.maria.mmcsr_pr10_fct.ui.students;
+package es.iessaladillo.maria.mmcsr_pr10_fct.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -29,7 +29,6 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.base.EventObserver;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentStudentBinding;
-import es.iessaladillo.maria.mmcsr_pr10_fct.ui.companies.CompanyFragmentAdapter;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.SnackbarUtils;
 
 public class StudentFragment extends Fragment {
@@ -58,7 +57,7 @@ public class StudentFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         viewModel = ViewModelProviders.of(this, new StudentFragmentViewModelFactory(requireActivity().getApplication(),
-                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao()))).get(StudentFragmentViewModel.class);
+                new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), appDatabase.visitDao()))).get(StudentFragmentViewModel.class);
         navController = NavHostFragment.findNavController(this);
         setupViews();
         observeStudents();
@@ -67,7 +66,7 @@ public class StudentFragment extends Fragment {
     }
 
     private void setupViews() {
-        b.lblEmptyStudents.setOnClickListener(l -> navigateToAddStudent(0));
+        b.lblEmptyStudents.setOnClickListener(l -> navigateToAddStudent(R.integer.defaultValorAdd));
         setupToolbar();
         setupRecyclerView();
     }
