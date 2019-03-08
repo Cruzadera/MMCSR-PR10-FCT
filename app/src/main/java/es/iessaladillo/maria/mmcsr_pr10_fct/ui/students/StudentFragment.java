@@ -13,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -60,13 +62,14 @@ public class StudentFragment extends Fragment {
                 new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), appDatabase.visitDao()))).get(StudentFragmentViewModel.class);
         navController = NavHostFragment.findNavController(this);
         setupViews();
+        observeCompanies();
         observeStudents();
         observeErrorMessage();
         observeSuccessMessage();
     }
 
     private void setupViews() {
-        b.lblEmptyStudents.setOnClickListener(l -> navigateToAddStudent(R.integer.defaultValorAdd));
+        b.lblEmptyStudents.setOnClickListener(l -> navigateToAddStudent(getResources().getInteger(R.integer.defaultValorAdd)));
         setupToolbar();
         setupRecyclerView();
     }
@@ -108,6 +111,16 @@ public class StudentFragment extends Fragment {
         });
     }
 
+    private void observeCompanies(){
+        viewModel.getNamesCompaniesLiveData().observe(this, namesCompanies -> {
+            if(namesCompanies.size() == 0){
+                viewModel.setAreCompanies(false);
+            }else{
+                viewModel.setAreCompanies(true);
+            }
+        });
+    }
+
     private void observeSuccessMessage() {
         viewModel.getSuccessMessage().observe(getViewLifecycleOwner(),
                 new EventObserver<>(this::showMessage));
@@ -123,12 +136,17 @@ public class StudentFragment extends Fragment {
     }
 
     private void navigateToAddStudent(int currentStudentId) {
-        Bundle arguments = new Bundle();
-        if (currentStudentId != 0) {
-            arguments.putBoolean("edit", true);
+        observeCompanies();
+        if (viewModel.isAreCompanies()) {
+            Bundle arguments = new Bundle();
+            if (currentStudentId != 0) {
+                arguments.putBoolean("edit", true);
+            }
+            arguments.putInt("studentId", currentStudentId);
+            navController.navigate(R.id.action_studentFragment_to_addStudentFragment, arguments);
+        }else{
+            Toast.makeText(requireContext(), getString(R.string.msg_no_companies), Toast.LENGTH_SHORT).show();
         }
-        arguments.putInt("studentId", currentStudentId);
-        navController.navigate(R.id.action_studentFragment_to_addStudentFragment, arguments);
     }
 
     private void setupToolbar() {
@@ -139,6 +157,17 @@ public class StudentFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.student_fragment, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //I need to check if there are companies in the database
+        if (item.getItemId() == R.id.mnuStudent) {
+            navigateToAddStudent(getResources().getInteger(R.integer.defaultValorAdd));
+        } else {
+            requireActivity().onBackPressed();
+        }
+        return true;
     }
 
 }

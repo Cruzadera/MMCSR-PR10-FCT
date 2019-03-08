@@ -93,7 +93,7 @@ public class CompanyFragment extends Fragment {
     }
 
     private void setupViews() {
-        b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(R.integer.defaultValorAdd));
+        b.lblEmptyCompany.setOnClickListener(view -> navigateToAddCompany(getResources().getInteger(R.integer.defaultValorAdd)));
         setupToolbar();
         setupRecyclerView();
     }

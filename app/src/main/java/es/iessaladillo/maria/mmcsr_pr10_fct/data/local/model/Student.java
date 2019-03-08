@@ -12,8 +12,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "student",
         foreignKeys = @ForeignKey(entity = Company.class,
         parentColumns = "name",
-        childColumns = "nameCompany"),
-        indices=@Index(value="name"))
+        childColumns = "nameCompany"), indices = {@Index(value = {"nameStudent"},
+        unique = true)})
 public class Student {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="idStudent")

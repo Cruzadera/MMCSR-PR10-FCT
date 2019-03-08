@@ -205,5 +205,10 @@ public class RepositoryImpl implements Repository {
         return visitDao.queryVisit(visitId);
     }
 
+    @Override
+    public LiveData<Visit> queryVisitByIdStudent(long studentId) {
+        return visitDao.queryVisitByIdStudent(studentId);
+    }
+
 
 }

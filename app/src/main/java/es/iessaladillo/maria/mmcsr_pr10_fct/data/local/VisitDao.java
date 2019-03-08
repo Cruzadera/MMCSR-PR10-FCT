@@ -15,4 +15,7 @@ public interface VisitDao extends BaseDao<Visit> {
 
     @Query("SELECT * FROM visit WHERE idVisit = :visitId")
     LiveData<Visit> queryVisit(long visitId);
+
+    @Query("SELECT * FROM visit WHERE idStu = :idStudent")
+    LiveData<Visit> queryVisitByIdStudent(long idStudent);
 }

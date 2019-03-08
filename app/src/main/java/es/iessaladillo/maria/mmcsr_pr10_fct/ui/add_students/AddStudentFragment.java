@@ -34,6 +34,7 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.base.EventObserver;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.RepositoryImpl;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.AppDatabase;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentAddStudentBinding;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.Field;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.KeyboardUtils;
@@ -48,6 +49,7 @@ public class AddStudentFragment extends Fragment {
     private NavController navController;
     private int studentId;
     private boolean edit;
+    private Student student;
 
     public static AddStudentFragment newInstance() {
         return new AddStudentFragment();
@@ -70,7 +72,7 @@ public class AddStudentFragment extends Fragment {
         studentId = getArguments().getInt("studentId");
         edit = getArguments().getBoolean("edit");
         navController = NavHostFragment.findNavController(this);
-        if(edit){
+        if (edit) {
             viewModel.getStudent(studentId).observe(getViewLifecycleOwner(), this::dataEditStudent);
         }
         setupViews();
@@ -143,16 +145,12 @@ public class AddStudentFragment extends Fragment {
     }
 
     private void getSpinnerData(List<String> stringList) {
-        if (stringList.size() > 0) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                    android.R.layout.simple_dropdown_item_1line,
-                    stringList);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            b.spinnerCompanies.setAdapter(adapter);
-        }else{
-            SnackbarUtils.snackbar(b.tilTutorName, getString(R.string.msg_no_companies));
-            navController.navigate(R.id.studentFragment);
-        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                stringList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        b.spinnerCompanies.setAdapter(adapter);
+
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -184,16 +182,16 @@ public class AddStudentFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_company_fragment, menu);
+        inflater.inflate(R.menu.add_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //Conflicts navigation lib with de validation form
-        if(item.getItemId() == R.id.mnuSave){
+        if (item.getItemId() == R.id.mnuSave) {
             save();
-        }else{
+        } else {
             requireActivity().onBackPressed();
         }
         return true;
@@ -202,10 +200,10 @@ public class AddStudentFragment extends Fragment {
     private void save() {
         if (isValidForm()) {
             KeyboardUtils.hideSoftKeyboard(requireActivity());
-            Student student = getDataStudent();
+            student = getDataStudent();
             if (!edit) {
                 viewModel.insertStudent(student);
-            }else{
+            } else {
                 viewModel.updateStudent(student);
             }
             navController.navigate(R.id.studentFragment);
@@ -233,19 +231,19 @@ public class AddStudentFragment extends Fragment {
     }
 
     @SuppressLint("NewApi")
-    private boolean checkField(TextInputLayout label, TextInputEditText txt, Field field){
+    private boolean checkField(TextInputLayout label, TextInputEditText txt, Field field) {
         boolean isValid;
         if (field == Field.EMAIL && !ValidationUtils.isValidEmail(txt.getText().toString())) {
-            isValid = false;
+            isValid = invalidateField(txt);
 
         } else if (field == Field.PHONENUMBER && !ValidationUtils.isValidSpanishPhoneNumber(txt.getText().toString())) {
-            isValid = false;
+            isValid = invalidateField(txt);
 
         } else if (field == Field.HOUR && !ValidationUtils.isValidHour(txt.getText().toString())) {
-            isValid = false;
+            isValid =invalidateField(txt);
 
         } else if (field == Field.COMMON && !ValidationUtils.isEmptyText(txt.getText().toString())) {
-            isValid = false;
+            isValid = invalidateField(txt);
 
         } else {
             label.setEnabled(true);
@@ -253,5 +251,11 @@ public class AddStudentFragment extends Fragment {
         }
         return isValid;
     }
+
+    private boolean invalidateField(TextInputEditText txt) {
+        txt.setError(getString(R.string.main_invalid_data));
+        return false;
+    }
+
 
 }

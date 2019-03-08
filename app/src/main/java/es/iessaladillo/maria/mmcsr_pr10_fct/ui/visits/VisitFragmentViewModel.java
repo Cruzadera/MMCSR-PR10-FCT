@@ -13,11 +13,19 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.R;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Event;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 
 class VisitFragmentViewModel extends ViewModel {
     private final Application application;
+    private final Repository repository;
+    private List<Student> studentsAvailable;
     private final LiveData<List<Visit>> visits;
+    private final LiveData<List<Student>> students;
+    private final MutableLiveData<Visit> insertTrigger = new MutableLiveData<>();
+    private final LiveData<Resource<Long>> insertResult;
+    private LiveData<Visit> visitLiveData;
+    private Visit visit;
     private final MutableLiveData<Visit> deleteTrigger = new MutableLiveData<>();
     private final LiveData<Resource<Integer>> deletionResult;
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
@@ -25,7 +33,10 @@ class VisitFragmentViewModel extends ViewModel {
 
     VisitFragmentViewModel(Application application, Repository repository) {
         this.application = application;
+        this.repository = repository;
         visits = repository.queryVisits();
+        students = repository.queryStudents();
+        insertResult = Transformations.switchMap(insertTrigger, repository::insertVisit);
         deletionResult = Transformations.switchMap(deleteTrigger, repository::deleteVisit);
         setupSuccessMessage();
         setupErrorMessage();
@@ -61,5 +72,36 @@ class VisitFragmentViewModel extends ViewModel {
 
     void deleteStudent(Visit visit) {
         deleteTrigger.setValue(visit);
+    }
+
+    LiveData<Visit> queryVisitByStudentId(long studentId) {
+        if (visitLiveData == null) {
+            visitLiveData = repository.queryVisitByIdStudent(studentId);
+        }
+        return visitLiveData;
+    }
+
+    LiveData<List<Student>> getStudents() {
+        return students;
+    }
+
+    List<Student> getStudentsAvailable() {
+        return studentsAvailable;
+    }
+
+    void setStudentsAvailable(List<Student> studentsAvailable) {
+        this.studentsAvailable = studentsAvailable;
+    }
+
+    void insertVisit(Visit visit) {
+        insertTrigger.setValue(visit);
+    }
+
+    public Visit getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Visit visit) {
+        this.visit = visit;
     }
 }

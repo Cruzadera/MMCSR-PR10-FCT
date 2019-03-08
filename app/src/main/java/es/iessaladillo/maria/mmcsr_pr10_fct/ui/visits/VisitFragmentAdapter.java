@@ -1,11 +1,13 @@
 package es.iessaladillo.maria.mmcsr_pr10_fct.ui.visits;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -15,7 +17,7 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 
 public class VisitFragmentAdapter extends ListAdapter<Visit, VisitFragmentAdapter.ViewHolder> {
 
-    interface OnEditableListener{
+    interface OnEditableListener {
         void onEdit(int position);
     }
 
@@ -27,7 +29,7 @@ public class VisitFragmentAdapter extends ListAdapter<Visit, VisitFragmentAdapte
         this.onEditableListener = onEditableListener;
     }
 
-    VisitFragmentAdapter(){
+    VisitFragmentAdapter() {
         super(new DiffUtil.ItemCallback<Visit>() {
             @Override
             public boolean areItemsTheSame(@NonNull Visit oldItem, @NonNull Visit newItem) {
@@ -66,7 +68,7 @@ public class VisitFragmentAdapter extends ListAdapter<Visit, VisitFragmentAdapte
         return super.getItem(position).getIdVisit();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView lblDate;
         private final TextView lblEndTime;
         private final TextView lblStartTime;
@@ -78,10 +80,16 @@ public class VisitFragmentAdapter extends ListAdapter<Visit, VisitFragmentAdapte
             lblStartTime = ViewCompat.requireViewById(itemView, R.id.lblStartTime);
         }
 
-        void bind(Visit visit){
-            lblDate.setText(visit.getDate());
-            lblStartTime.setText(visit.getStartTime());
-            lblEndTime.setText(visit.getEndTime());
+        void bind(Visit visit) {
+            if (visit.getDate() == null) {
+                lblDate.setText(R.string.msg_initial_visit);
+                lblEndTime.setText(R.string.msg_initial_visit);
+                lblStartTime.setText(R.string.msg_initial_visit);
+            }else{
+                lblDate.setText(visit.getDate());
+                lblStartTime.setText(visit.getStartTime());
+                lblEndTime.setText(visit.getEndTime());
+            }
         }
     }
 }

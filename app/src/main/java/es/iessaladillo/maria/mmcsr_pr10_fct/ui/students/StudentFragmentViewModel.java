@@ -16,8 +16,10 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
 
 class StudentFragmentViewModel extends ViewModel {
+    private boolean areCompanies;
     private final Application application;
     private final LiveData<List<Student>> students;
+    private final LiveData<List<String>> namesCompaniesLiveData;
     private final MutableLiveData<Student> deleteTrigger = new MutableLiveData<>();
     private final LiveData<Resource<Integer>> deletionResult;
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
@@ -25,6 +27,7 @@ class StudentFragmentViewModel extends ViewModel {
 
     StudentFragmentViewModel(Application application, Repository repository) {
         this.application = application;
+        namesCompaniesLiveData = repository.queryAllCompanyNames();
         students = repository.queryStudents();
         deletionResult = Transformations.switchMap(deleteTrigger, repository::deleteStudent);
         setupSuccessMessage();
@@ -61,5 +64,17 @@ class StudentFragmentViewModel extends ViewModel {
 
     void deleteStudent(Student student) {
         deleteTrigger.setValue(student);
+    }
+
+    LiveData<List<String>> getNamesCompaniesLiveData() {
+        return namesCompaniesLiveData;
+    }
+
+    public boolean isAreCompanies() {
+        return areCompanies;
+    }
+
+    public void setAreCompanies(boolean areCompanies) {
+        this.areCompanies = areCompanies;
     }
 }

@@ -3,6 +3,8 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "visit",
@@ -10,8 +12,8 @@ import androidx.room.PrimaryKey;
         parentColumns = "idStudent",
         childColumns = "idStu"),
         @ForeignKey(entity = Student.class,
-        parentColumns = "name",
-        childColumns = "nameStudent")})
+        parentColumns = "nameStudent",
+        childColumns = "nameStu")})
 public class Visit {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="idVisit")
@@ -26,7 +28,7 @@ public class Visit {
     private String observations;
     @ColumnInfo(name = "idStu")
     private long idStu;
-    @ColumnInfo(name = "nameStudent")
+    @ColumnInfo(name = "nameStu")
     private String nameStudent;
 
 
@@ -38,6 +40,10 @@ public class Visit {
         this.observations = observations;
         this.idStu = idStu;
         this.nameStudent = nameStudent;
+    }
+    @Ignore
+    public Visit() {
+
     }
 
 

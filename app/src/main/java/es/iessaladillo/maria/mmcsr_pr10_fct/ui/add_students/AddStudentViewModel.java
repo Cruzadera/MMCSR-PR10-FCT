@@ -14,17 +14,20 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.base.Event;
 import es.iessaladillo.maria.mmcsr_pr10_fct.base.Resource;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.Repository;
 import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Student;
+import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 
-public class AddStudentViewModel extends ViewModel {
+class AddStudentViewModel extends ViewModel {
     private final Application application;
     private final Repository repository;
     private LiveData<Student> studentLiveData;
     private LiveData<String> companyLiveDataByName;
     private LiveData<List<String>> namesCompaniesLiveData;
+    private final MutableLiveData<Visit> insertTriggerVisit = new MutableLiveData<>();
     private final MutableLiveData<Student> insertTrigger = new MutableLiveData<>();
     private final MutableLiveData<Student> updateTrigger = new MutableLiveData<>();
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
     private final MediatorLiveData<Event<String>> errorMessage = new MediatorLiveData<>();
+    private final LiveData<Resource<Long>> insertResultVisit;
     private final LiveData<Resource<Long>> insertResult;
     private final LiveData<Resource<Integer>> updateResult;
 
@@ -32,6 +35,7 @@ public class AddStudentViewModel extends ViewModel {
         this.application = application;
         this.repository = repository;
         namesCompaniesLiveData = repository.queryAllCompanyNames();
+        insertResultVisit = Transformations.switchMap(insertTriggerVisit, repository::insertVisit);
         insertResult = Transformations.switchMap(insertTrigger, repository::insertStudent);
         updateResult = Transformations.switchMap(updateTrigger, repository::updateStudent);
         setupSuccessMessage();
@@ -94,6 +98,10 @@ public class AddStudentViewModel extends ViewModel {
 
     void insertStudent(Student student) {
         insertTrigger.setValue(student);
+    }
+
+    void insertVisit(Visit visit){
+        insertTriggerVisit.setValue(visit);
     }
 
     void updateStudent(Student student) {

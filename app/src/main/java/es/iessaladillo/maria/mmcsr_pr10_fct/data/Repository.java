@@ -44,5 +44,7 @@ public interface Repository {
 
     LiveData<List<Visit>> queryVisits();
 
-    LiveData<Visit> queryVisit(long studentId);
+    LiveData<Visit> queryVisit(long visitId);
+
+    LiveData<Visit> queryVisitByIdStudent(long studentId);
 }

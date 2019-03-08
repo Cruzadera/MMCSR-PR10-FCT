@@ -58,6 +58,7 @@
     <string name="hint_start_time">Start time</string>
     <string name="hint_end_time">End time</string>
     <string name="hint_observations">Observations</string>
+    <string name="msg_initial_visit">Do initial visit</string>
     <string-array name="grades">
         <item>2º DAM</item>
         <item>2º SMR</item>

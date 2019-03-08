@@ -91,7 +91,7 @@ public class StudentFragmentAdapter extends ListAdapter<Student, StudentFragment
         void bind(Student student){
             lblName.setText(student.getName());
             lblPhone.setText(student.getPhone());
-            lblGrade.setText(student.getEmail());
+            lblGrade.setText(student.getGrade());
             lblCompanyName.setText(student.getNameCompany());
             lblTutorPhone.setText(student.getLaborTutorPhone());
             lblTutorName.setText(student.getLaborTutorName());
