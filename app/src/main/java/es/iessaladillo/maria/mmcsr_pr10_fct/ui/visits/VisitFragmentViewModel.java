@@ -19,13 +19,16 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 class VisitFragmentViewModel extends ViewModel {
     private final Application application;
     private final Repository repository;
-    private List<Student> studentsAvailable;
+    private LiveData<Student> studentLiveData;
+    private boolean studentsAvailable;
+    private List<Visit> visitsList;
     private final LiveData<List<Visit>> visits;
     private final LiveData<List<Student>> students;
     private final MutableLiveData<Visit> insertTrigger = new MutableLiveData<>();
     private final LiveData<Resource<Long>> insertResult;
     private LiveData<Visit> visitLiveData;
     private Visit visit;
+    private int days;
     private final MutableLiveData<Visit> deleteTrigger = new MutableLiveData<>();
     private final LiveData<Resource<Integer>> deletionResult;
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
@@ -48,12 +51,24 @@ class VisitFragmentViewModel extends ViewModel {
                 successMessage.setValue(new Event<>(application.getString(R.string.list_deleted_successfully)));
             }
         });
+        successMessage.addSource(insertResult, resource -> {
+            if (resource.hasSuccess() && resource.getData() >= 0) {
+                successMessage.setValue(new Event<>(application.getString(R.string.company_inserted_successfully)));
+            }
+        });
     }
 
     private void setupErrorMessage() {
         errorMessage.addSource(deletionResult, resource -> {
             if (resource.hasError()) {
                 errorMessage.setValue(new Event<>(application.getString(R.string.list_error_deleting)));
+            }
+        });
+        errorMessage.addSource(insertResult, resource -> {
+            if (resource.hasError()) {
+                errorMessage.setValue(new Event<>(resource.getException().getMessage()));
+            } else if (resource.hasSuccess() && resource.getData() <= 0) {
+                errorMessage.setValue(new Event<>(application.getString(R.string.company_error_inserting)));
             }
         });
     }
@@ -70,26 +85,33 @@ class VisitFragmentViewModel extends ViewModel {
         return errorMessage;
     }
 
-    void deleteStudent(Visit visit) {
+    void deleteVisit(Visit visit) {
         deleteTrigger.setValue(visit);
     }
 
-    LiveData<Visit> queryVisitByStudentId(long studentId) {
+    LiveData<Visit> queryVisitByStudentId(String nameStudent) {
         if (visitLiveData == null) {
-            visitLiveData = repository.queryVisitByIdStudent(studentId);
+            visitLiveData = repository.queryVisitByIdStudent(nameStudent);
         }
         return visitLiveData;
+    }
+
+    LiveData<Student> queryStudentByName(String nameStudent){
+        if(studentLiveData == null){
+            studentLiveData = repository.queryStudentByName(nameStudent);
+        }
+        return studentLiveData;
     }
 
     LiveData<List<Student>> getStudents() {
         return students;
     }
 
-    List<Student> getStudentsAvailable() {
+    boolean getStudentsAvailable() {
         return studentsAvailable;
     }
 
-    void setStudentsAvailable(List<Student> studentsAvailable) {
+    void setStudentsAvailable(boolean studentsAvailable) {
         this.studentsAvailable = studentsAvailable;
     }
 
@@ -103,5 +125,21 @@ class VisitFragmentViewModel extends ViewModel {
 
     public void setVisit(Visit visit) {
         this.visit = visit;
+    }
+
+    public List<Visit> getVisitsList() {
+        return visitsList;
+    }
+
+    void setVisitsList(List<Visit> visitsList) {
+        this.visitsList = visitsList;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
     }
 }

@@ -4,16 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "visit",
-        foreignKeys = {@ForeignKey(entity = Student.class,
-        parentColumns = "idStudent",
-        childColumns = "idStu"),
-        @ForeignKey(entity = Student.class,
-        parentColumns = "nameStudent",
-        childColumns = "nameStu")})
+        foreignKeys = @ForeignKey(entity = Student.class,
+                parentColumns = "nameStudent",
+                childColumns = "nameStu"))
 public class Visit {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="idVisit")
@@ -26,21 +22,21 @@ public class Visit {
     private String endTime;
     @ColumnInfo(name = "observations")
     private String observations;
-    @ColumnInfo(name = "idStu")
-    private long idStu;
     @ColumnInfo(name = "nameStu")
     private String nameStudent;
+    @ColumnInfo(name = "nextVisit")
+    private String nextVisit;
 
-
-    public Visit(long idVisit, String date, String startTime, String endTime, String observations, long idStu, String nameStudent) {
+    public Visit(long idVisit, String date, String startTime, String endTime, String observations, String nameStudent, String nextVisit) {
         this.idVisit = idVisit;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.observations = observations;
-        this.idStu = idStu;
         this.nameStudent = nameStudent;
+        this.nextVisit = nextVisit;
     }
+
     @Ignore
     public Visit() {
 
@@ -87,19 +83,19 @@ public class Visit {
         this.observations = observations;
     }
 
-    public long getIdStu() {
-        return idStu;
-    }
-
-    public void setIdStu(long idStu) {
-        this.idStu = idStu;
-    }
-
     public String getNameStudent() {
         return nameStudent;
     }
 
     public void setNameStudent(String nameStudent) {
         this.nameStudent = nameStudent;
+    }
+
+    public String getNextVisit() {
+        return nextVisit;
+    }
+
+    public void setNextVisit(String nextVisit) {
+        this.nextVisit = nextVisit;
     }
 }

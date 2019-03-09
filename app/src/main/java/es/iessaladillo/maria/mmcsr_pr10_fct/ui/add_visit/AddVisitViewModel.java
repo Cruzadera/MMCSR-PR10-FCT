@@ -2,6 +2,8 @@ package es.iessaladillo.maria.mmcsr_pr10_fct.ui.add_visit;
 
 import android.app.Application;
 
+import java.util.List;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -17,6 +19,7 @@ class AddVisitViewModel extends ViewModel {
     private final Application application;
     private final Repository repository;
     private LiveData<Visit> visitLiveData;
+    private LiveData<List<String>> namesStudentsLiveData;
     private final MutableLiveData<Visit> insertTrigger = new MutableLiveData<>();
     private final MutableLiveData<Visit> updateTrigger = new MutableLiveData<>();
     private final MediatorLiveData<Event<String>> successMessage = new MediatorLiveData<>();
@@ -27,6 +30,7 @@ class AddVisitViewModel extends ViewModel {
     AddVisitViewModel(Application application, Repository repository) {
         this.application = application;
         this.repository = repository;
+        namesStudentsLiveData = repository.queryAllStudentNames();
         insertResult = Transformations.switchMap(insertTrigger, repository::insertVisit);
         updateResult = Transformations.switchMap(updateTrigger, repository::updateVisit);
         setupSuccessMessage();
@@ -84,5 +88,9 @@ class AddVisitViewModel extends ViewModel {
 
     void updateVisit(Visit visit) {
         updateTrigger.setValue(visit);
+    }
+
+    LiveData<List<String>> getNamesStudentsLiveData() {
+        return namesStudentsLiveData;
     }
 }

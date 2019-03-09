@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -80,6 +80,46 @@
             tools:text="@tools:sample/date/hhmm"
             app:layout_constraintStart_toEndOf="@+id/titleEndTime"
             app:layout_constraintTop_toBottomOf="@+id/lblDate" />
+
+        <TextView
+            android:id="@+id/titleStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/lbl_student_visit"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/titleStartTime" />
+
+        <TextView
+            android:id="@+id/lblStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/titleStudent"
+            app:layout_constraintTop_toBottomOf="@+id/lblStartTime"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/titleNextVisit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/next_visit_title"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/titleStudent" />
+
+        <TextView
+            android:id="@+id/lblNextVisit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/titleNextVisit"
+            app:layout_constraintTop_toBottomOf="@+id/lblStudent"
+            tools:text="@tools:sample/date/ddmmyy" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

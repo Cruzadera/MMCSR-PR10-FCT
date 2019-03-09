@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -72,24 +73,31 @@ public class VisitFragmentAdapter extends ListAdapter<Visit, VisitFragmentAdapte
         private final TextView lblDate;
         private final TextView lblEndTime;
         private final TextView lblStartTime;
+        private final TextView lblStudent;
+        private final TextView lblNextVisit;
+        private final TextView titleNextVisit;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             lblDate = ViewCompat.requireViewById(itemView, R.id.lblDate);
             lblEndTime = ViewCompat.requireViewById(itemView, R.id.lblEndTime);
             lblStartTime = ViewCompat.requireViewById(itemView, R.id.lblStartTime);
+            lblStudent = ViewCompat.requireViewById(itemView, R.id.lblStudent);
+            lblNextVisit = ViewCompat.requireViewById(itemView, R.id.lblNextVisit);
+            titleNextVisit = ViewCompat.requireViewById(itemView, R.id.titleNextVisit);
+            itemView.setOnClickListener(v -> onEditableListener.onEdit(getAdapterPosition()));
         }
 
         void bind(Visit visit) {
-            if (visit.getDate() == null) {
+            if (visit.getDate().isEmpty()) {
                 lblDate.setText(R.string.msg_initial_visit);
-                lblEndTime.setText(R.string.msg_initial_visit);
-                lblStartTime.setText(R.string.msg_initial_visit);
             }else{
                 lblDate.setText(visit.getDate());
                 lblStartTime.setText(visit.getStartTime());
                 lblEndTime.setText(visit.getEndTime());
+                lblNextVisit.setText(visit.getNextVisit());
             }
+            lblStudent.setText(visit.getNameStudent());
         }
     }
 }

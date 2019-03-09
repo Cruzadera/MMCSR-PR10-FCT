@@ -148,6 +148,16 @@ public class RepositoryImpl implements Repository {
         return result;
     }
 
+    @Override
+    public LiveData<List<String>> queryAllStudentNames() {
+        return studentDao.queryAllStudentNames();
+    }
+
+    @Override
+    public LiveData<Student> queryStudentByName(String studentName) {
+        return studentDao.queryStudentByName(studentName);
+    }
+
     //-----------------------------------------VISIT------------------------------------------------
 
     @Override
@@ -206,8 +216,8 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public LiveData<Visit> queryVisitByIdStudent(long studentId) {
-        return visitDao.queryVisitByIdStudent(studentId);
+    public LiveData<Visit> queryVisitByIdStudent(String nameStudent) {
+        return visitDao.queryVisitByIdStudent(nameStudent);
     }
 
 

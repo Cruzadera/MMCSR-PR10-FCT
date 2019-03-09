@@ -117,7 +117,7 @@ public class CompanyFragment extends Fragment {
         listAdapter.setOnEditableListener((position) -> navigateToAddCompany((int) listAdapter.getItemId(position)));
         b.lstCompany.setHasFixedSize(true);
         b.lstCompany.setLayoutManager(new GridLayoutManager(getActivity(),
-                getResources().getInteger(R.integer.company_lstCompanies_columns)));
+                getResources().getInteger(R.integer.lst_columns)));
         b.lstCompany.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
         b.lstCompany.setItemAnimator(new DefaultItemAnimator());
         b.lstCompany.setAdapter(listAdapter);

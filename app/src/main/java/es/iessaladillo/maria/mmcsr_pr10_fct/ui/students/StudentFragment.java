@@ -79,7 +79,7 @@ public class StudentFragment extends Fragment {
         listAdapter.setOnEditableListener((position) -> navigateToAddStudent((int) listAdapter.getItemId(position)));
         b.lstStudent.setHasFixedSize(true);
         b.lstStudent.setLayoutManager(new GridLayoutManager(getActivity(),
-                getResources().getInteger(R.integer.company_lstCompanies_columns)));
+                getResources().getInteger(R.integer.lst_columns)));
         b.lstStudent.addItemDecoration(new DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL));
         b.lstStudent.setItemAnimator(new DefaultItemAnimator());
         b.lstStudent.setAdapter(listAdapter);
@@ -155,14 +155,14 @@ public class StudentFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.student_fragment, menu);
+        inflater.inflate(R.menu.add_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         //I need to check if there are companies in the database
-        if (item.getItemId() == R.id.mnuStudent) {
+        if (item.getItemId() == R.id.mnuAdd) {
             navigateToAddStudent(getResources().getInteger(R.integer.defaultValorAdd));
         } else {
             requireActivity().onBackPressed();

@@ -48,7 +48,7 @@
     <string name="hint_departure_time">Departure time</string>
     <string name="adapter_dialog_student">Select nameCompany</string>
     <string name="msg_no_companies">You have to add at least one name company</string>
-    <string name="lbl_new_student">New student</string>
+    <string name="lbl_new_item">New</string>
     <string name="lbl_no_visits">No visits yet</string>
     <string name="title_date">Date:</string>
     <string name="title_start_time">Start time:</string>
@@ -59,11 +59,40 @@
     <string name="hint_end_time">End time</string>
     <string name="hint_observations">Observations</string>
     <string name="msg_initial_visit">Do initial visit</string>
+    <string name="lbl_spinner_student">Choose student</string>
+    <string name="lbl_student_visit">Student:</string>
+    <string name="refresh_title">Refresh</string>
+    <string name="next_visit_title">Next visit:</string>
+    <string name="msg_as_long_as_possible">As soon as possible</string>
+    <string name="prefInitalPageKey">initialPAge</string>
+    <string name="prefPageTitle">Main page</string>
+    <string name="prefInitalPageTitle">Main page</string>
+    <string name="preferences_title">Preferences</string>
+    <string name="prefDays_key" translatable="false">prefShifts</string>
+    <string name="prefShifts_title">Days the next visit</string>
+    <string name="prefShifts_dialogTitle">Days do you want to consider for the next visit</string>
+    <string name="defaultValueDays">15</string>
+    <string name="msg_no_students">There must be at least one student in the database</string>
+    <string-array name="prefShifts_defaultValue">
+        <item>15</item>
+    </string-array>
+    <string-array name="prefShifts_entries">
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="prefShifts_entryValues">
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="pre_pages_values">
+        <item>@string/visits_title</item>
+        <item>@string/students_title</item>
+        <item>@string/companies_title</item>
+    </string-array>
     <string-array name="grades">
         <item>2º DAM</item>
         <item>2º SMR</item>
-    </string-array>
-    <string-array name="names_companies">
-
     </string-array>
 </resources>

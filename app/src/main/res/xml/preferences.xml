@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:defaultValue="@string/visits_title"
+        android:dialogTitle="@string/prefPageTitle"
+        android:disableDependentsState="true"
+        android:entries="@array/pre_pages_values"
+        android:entryValues="@array/pre_pages_values"
+        android:key="@string/prefInitalPageKey"
+        android:icon="@drawable/ic_home_black_24dp"
+        app:useSimpleSummaryProvider="true"
+        android:title="@string/prefInitalPageTitle" />
+
+
+    <MultiSelectListPreference
+        android:defaultValue="@array/prefShifts_defaultValue"
+        android:dialogTitle="@string/prefShifts_dialogTitle"
+        android:entries="@array/prefShifts_entries"
+        android:entryValues="@array/prefShifts_entryValues"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:key="@string/prefDays_key"
+        android:title="@string/prefShifts_title"/>
+</PreferenceScreen>

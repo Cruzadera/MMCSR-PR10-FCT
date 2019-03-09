@@ -35,6 +35,10 @@ public interface Repository {
 
     LiveData<Resource<Integer>> updateStudent(Student student);
 
+    LiveData<List<String>> queryAllStudentNames();
+
+    LiveData<Student> queryStudentByName(String studentName);
+
     //Visit
     LiveData<Resource<Long>> insertVisit(Visit visit);
 
@@ -46,5 +50,5 @@ public interface Repository {
 
     LiveData<Visit> queryVisit(long visitId);
 
-    LiveData<Visit> queryVisitByIdStudent(long studentId);
+    LiveData<Visit> queryVisitByIdStudent(String nameStudent);
 }

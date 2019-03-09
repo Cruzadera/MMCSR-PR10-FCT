@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mnuSave"
-        android:title="@string/lbl_save"
+        android:id="@+id/mnuAdd"
+        android:title="@string/lbl_new_item"
         android:menuCategory="secondary"
-        android:icon="@drawable/ic_save_white_24dp"
+        android:icon="@drawable/ic_add_circle_white_24dp"
         app:showAsAction="ifRoom|withText"/>
 </menu>
