@@ -42,7 +42,7 @@ import es.iessaladillo.maria.mmcsr_pr10_fct.data.local.model.Visit;
 import es.iessaladillo.maria.mmcsr_pr10_fct.databinding.FragmentVisitBinding;
 import es.iessaladillo.maria.mmcsr_pr10_fct.utils.SnackbarUtils;
 
-public class VisitFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class VisitFragment extends Fragment{
 
     private VisitFragmentViewModel viewModel;
     private FragmentVisitBinding b;
@@ -91,7 +91,6 @@ public class VisitFragment extends Fragment implements SharedPreferences.OnShare
     @Override
     public void onResume() {
         super.onResume();
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         observeStudents();
         observeVisits();
         observeNextVisits();
@@ -102,7 +101,6 @@ public class VisitFragment extends Fragment implements SharedPreferences.OnShare
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         AppDatabase appDatabase = AppDatabase.getInstance(requireContext().getApplicationContext());
         viewModel = ViewModelProviders.of(this, new VisitFragmentViewModelFactory(requireActivity().getApplication(),
                 new RepositoryImpl(appDatabase.companyDao(), appDatabase.studentDao(), appDatabase.visitDao()))).get(VisitFragmentViewModel.class);
@@ -248,16 +246,5 @@ public class VisitFragment extends Fragment implements SharedPreferences.OnShare
 
     private void setupToolbar() {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(b.toolbar);
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        viewModel.setDays(sharedPreferences.getInt(getString(R.string.prefDays_key),getResources().getInteger(R.integer.defaultDays)));
-    }
-
-    @Override
-    public void onPause() {
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-        super.onPause();
     }
 }
